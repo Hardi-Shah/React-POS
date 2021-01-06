@@ -1,0 +1,22 @@
+{
+    "categories": [
+        {     
+            "id": 1,
+            "name": "Food"
+        },
+        {
+            "id": 2,
+            "name": "Electronics"
+        }
+    ],
+    "products":[
+        {
+            "id": 1,
+            "name": "Vegetables"
+        },
+        {
+            "id": 2,
+            "name": "Lights"
+        }
+    ]
+}

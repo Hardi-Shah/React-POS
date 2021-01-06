@@ -118,7 +118,7 @@ export default function Navbar() {
     };
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} >
             <CssBaseline />
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
@@ -134,7 +134,6 @@ export default function Navbar() {
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Dashboard
           </Typography>
-
                 </Toolbar>
             </AppBar>
             <Drawer
