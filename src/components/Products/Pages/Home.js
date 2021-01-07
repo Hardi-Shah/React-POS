@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getCategoryService, deleteCategoryServiceById } from "../../../Services/CategoryService";
+import { getProductService, deleteProductServiceById } from "../../../Services/ProductService";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -32,20 +32,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
     const classes = useStyles();
-    const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        loadCategories();
+        loadProducts();
     }, []);
 
-    const loadCategories = async () => {
-        const result = await getCategoryService()
-        setCategories(result.data.reverse());
+    const loadProducts = async () => {
+        const result = await getProductService()
+        setProducts(result.data.reverse());
 
     };
-    const deleteCategory = async id => {
-        await deleteCategoryServiceById(id)
-        loadCategories();
+    const deleteProduct = async id => {
+        await deleteProductServiceById(id)
+        loadProducts();
     }
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -60,7 +60,7 @@ export default function Home() {
   
     return (
         <TableContainer >
-        <Link className="btn btn-primary AddBtn" to="/categories/add">Add Category</Link>
+        <Link className="btn btn-primary AddBtn" to="/products/add">Add Product</Link>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead >
                     <TableRow className={classes.head}>
@@ -70,18 +70,18 @@ export default function Home() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {categories
+                    {products
                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        .map((category, index) => (
-                            <TableRow key={category.id} className={classes.root}>
+                        .map((product, index) => (
+                            <TableRow key={product.id} className={classes.root}>
                                 <TableCell component="th" scope="row">
                                     {index + 1}
                                 </TableCell>
-                                <TableCell >{category.name}</TableCell>
+                                <TableCell >{product.name}</TableCell>
                                 <TableCell>
-                                    <Link className="btn fa fa-eye btn-primary mr-2" to={`/categories/${category.id}`}>View</Link>
-                                    <Link className="btn btn-outline-primary mr-2" to={`/categories/edit/${category.id}`}> Edit</Link>
-                                    <Link className="btn  btn-danger mr-2" to="" onClick={() => deleteCategory(category.id)}> Delete</Link>
+                                    <Link className="btn fa fa-eye btn-primary mr-2" to={`/products/${product.id}`}>View</Link>
+                                    <Link className="btn btn-outline-primary mr-2" to={`/products/edit/${product.id}`}> Edit</Link>
+                                    <Link className="btn  btn-danger mr-2" to="" onClick={() => deleteProduct(product.id)}> Delete</Link>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -90,7 +90,7 @@ export default function Home() {
             <TablePagination
                 rowsPerPageOptions={[5, 10, 25]}
                 component="div"
-                count={categories.length}
+                count={products.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}
