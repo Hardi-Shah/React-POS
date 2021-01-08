@@ -17,7 +17,7 @@ const Product = () => {
         await getProductServiceById(id)
             .then(res => setProduct(res.data))
             .catch(err => {
-                history.push("/NotFound");
+                history.push("/ProductNotFound");
             })
     };
     return (

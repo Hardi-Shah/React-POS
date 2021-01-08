@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const NotFound = () => {
+const ProductNotFound = () => {
   const classes = useStyles();
 
   return (
@@ -59,4 +59,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default ProductNotFound;

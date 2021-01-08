@@ -8,19 +8,19 @@ import CategoryIcon from '@material-ui/icons/Category';
 
 export const MainListItems = (
     <div>
-        <ListItem button>
+        <ListItem button component="a" href="/" >
             <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component="a" href="/Category">
             <ListItemIcon>
                 <CategoryIcon />
             </ListItemIcon>
             <ListItemText primary="Categories" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component="a" href="/Product">
             <ListItemIcon>
                 <ShoppingCartIcon />
             </ListItemIcon>

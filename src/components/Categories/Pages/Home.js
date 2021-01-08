@@ -11,10 +11,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import '../../Categories/CategoryList/Category.css';
+import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     table: {
-        width: '50%',
+        width: '70%',
         margin: 'auto',
         marginTop: 50
     },
@@ -23,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     },
     headcolor: {
         color: 'white'
+    },
+    paper:{
+        marginTop:20
     },
     root: {
         '&:nth-of-type(odd)': {
@@ -60,11 +64,10 @@ export default function Home() {
     };
 
     return (
-        <TableContainer >
-            <Box minWidth={1050}>
+        <div className="container">
+        <TableContainer className={classes.paper} component={Paper} >
                 <Link className="btn btn-primary AddBtn" to="/categories/add">Add Category</Link>
                 <Table className={classes.table} aria-label="simple table">
-
                     <TableHead >
                         <TableRow className={classes.head}>
                             <TableCell className={classes.headcolor}>#</TableCell>
@@ -99,8 +102,8 @@ export default function Home() {
                     onChangePage={handleChangePage}
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 />
-            </Box>
         </TableContainer>
+        </div>
 
     );
 }

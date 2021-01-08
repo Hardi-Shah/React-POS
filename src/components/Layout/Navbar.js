@@ -15,6 +15,18 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import { MainListItems } from './ListItem';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AddCategory from '../../components/Categories/CategoryList/AddCategory';
+import EditCategory from '../../components/Categories/CategoryList/EditCategory';
+import Category from '../../components/Categories/CategoryList/Category';
+import NotFound from '../../components/Categories/Pages/NotFound';
+import Home from '../../components/Categories/Pages/Home';
+
+import ProductList from '../../components/Products/Pages/ProductList';
+import ProductNotFound from '../../components/Products/Pages/ProductNotFound';
+import AddProduct from '../../components/Products/ProductList/AddProduct';
+import EditProduct from '../../components/Products/ProductList/EditProduct';
+import Product from '../../components/Products/ProductList/Product';
 
 function Copyright() {
     return (
@@ -116,6 +128,15 @@ export default function Navbar() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    const Dashboard = () => {
+        return (
+            <Container maxWidth="lg" className={classes.container}>
+                <Box pt={4}>
+                    <Copyright />
+                </Box>
+            </Container>
+        )
+    }
 
     return (
         <div className={classes.root} >
@@ -153,11 +174,22 @@ export default function Navbar() {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" className={classes.container}>
-                    <Box pt={4}>
-                        <Copyright />
-                    </Box>
-                </Container>
+                <Router>
+                    <Switch>
+                        <Route exact path="/" component={Dashboard} />
+                        <Route exact path="/Category" component={Home} />
+                        <Route exact path="/categories/add" component={AddCategory} />
+                        <Route exact path="/categories/edit/:id" component={EditCategory} />
+                        <Route exact path="/categories/:id" component={Category} />
+                        <Route exact path="/NotFound" component={NotFound} />
+                        <Route exact path="/Product" component={ProductList} />
+                        <Route exact path="/products/add" component={AddProduct} />
+                        <Route exact path="/products/edit/:id" component={EditProduct} />
+                        <Route exact path="/products/:id" component={Product} />
+                        <Route exact path="/ProductNotFound" component={ProductNotFound} />
+                    </Switch>
+                </Router>
+
             </main>
 
         </div>
