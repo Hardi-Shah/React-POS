@@ -7,6 +7,14 @@
     {
       "id": 2,
       "name": "Electronics"
+    },
+    {
+      "name": "Bevarages",
+      "id": 3
+    },
+    {
+      "name": "Clothing",
+      "id": 4
     }
   ],
   "products": [
@@ -17,6 +25,14 @@
     {
       "id": 2,
       "name": "Lights"
+    },
+    {
+      "name": "Tea",
+      "id": 3
+    },
+    {
+      "name": "Coffee",
+      "id": 4
     }
   ]
 }

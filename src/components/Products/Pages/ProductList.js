@@ -57,10 +57,10 @@ export default function ProductList() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-  
+
     return (
         <TableContainer >
-        <Link className="btn btn-primary AddBtn" to="/products/add">Add Product</Link>
+            <Link className="btn  btn-primary AddBtn" to="/products/add">Add Product</Link>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead >
                     <TableRow className={classes.head}>
@@ -80,8 +80,8 @@ export default function ProductList() {
                                 <TableCell >{product.name}</TableCell>
                                 <TableCell>
                                     <Link className="btn fa fa-eye btn-primary mr-2" to={`/products/${product.id}`}>View</Link>
-                                    <Link className="btn btn-outline-primary mr-2" to={`/products/edit/${product.id}`}> Edit</Link>
-                                    <Link className="btn  btn-danger mr-2" to="" onClick={() => deleteProduct(product.id)}> Delete</Link>
+                                    <Link className="btn fa fa-edit btn-outline-primary mr-2" to={`/products/edit/${product.id}`}> Edit</Link>
+                                    <Link className="btn fa fa-trash btn-danger mr-2" to="" onClick={() => deleteProduct(product.id)}> Delete</Link>
                                 </TableCell>
                             </TableRow>
                         ))}

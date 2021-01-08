@@ -16,7 +16,7 @@ const AddProduct = () => {
     })
     const onSubmit = async values => {
         await addProductService(values)
-        history.push("/");
+        history.push("/Product");
     }
 
     return (

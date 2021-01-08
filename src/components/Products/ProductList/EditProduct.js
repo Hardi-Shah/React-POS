@@ -23,7 +23,7 @@ const EditProduct = () => {
     })
     const onSubmit = async values => {
         await editProductService(id, values)
-        history.push("/");
+        history.push("/Product");
     }
 
     useEffect(() => {

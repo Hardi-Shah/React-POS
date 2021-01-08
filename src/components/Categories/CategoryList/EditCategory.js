@@ -23,7 +23,7 @@ const EditCategory = () => {
     })
     const onSubmit = async values => {
         await editCategoryService(id, values)
-        history.push("/");
+        history.push("/Category");
     }
 
     useEffect(() => {

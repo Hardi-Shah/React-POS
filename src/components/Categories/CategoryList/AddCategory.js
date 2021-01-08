@@ -16,7 +16,7 @@ const AddCategory = () => {
     })
     const onSubmit = async values => {
         await addCategoryService(values)
-        history.push("/");
+        history.push("/Category");
     }
 
     return (

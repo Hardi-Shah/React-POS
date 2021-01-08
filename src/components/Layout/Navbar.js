@@ -189,9 +189,7 @@ export default function Navbar() {
                         <Route exact path="/ProductNotFound" component={ProductNotFound} />
                     </Switch>
                 </Router>
-
             </main>
-
         </div>
     );
 }
