@@ -4,7 +4,6 @@ import { getCategoryService, deleteCategoryServiceById } from "../../../Services
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
-import Box from '@material-ui/core/Box';
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
@@ -15,18 +14,20 @@ import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     table: {
-        width: '70%',
+        width: '90%',
         margin: 'auto',
         marginTop: 50
     },
     head: {
-        backgroundColor: 'black'
+        backgroundColor: 'darkblue'
     },
     headcolor: {
         color: 'white'
     },
     paper:{
-        marginTop:20
+        marginTop:80,
+        width:'80%',
+        margin:'auto'
     },
     root: {
         '&:nth-of-type(odd)': {
@@ -66,7 +67,7 @@ export default function Home() {
     return (
         <div className="container">
         <TableContainer className={classes.paper} component={Paper} >
-                <Link className="btn btn-primary AddBtn" to="/categories/add">Add Category</Link>
+                <Link className="btn btn-outline-primary AddCategory" to="/categories/add">Add Category</Link>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead >
                         <TableRow className={classes.head}>
@@ -85,9 +86,9 @@ export default function Home() {
                                     </TableCell>
                                     <TableCell >{category.name}</TableCell>
                                     <TableCell>
-                                        <Link className="btn fa fa-eye btn-primary mr-2" to={`/categories/${category.id}`}>View</Link>
-                                        <Link className="btn btn-outline-primary mr-2" to={`/categories/edit/${category.id}`}> Edit</Link>
-                                        <Link className="btn  btn-danger mr-2" to="" onClick={() => deleteCategory(category.id)}> Delete</Link>
+                                        <Link className="btn fa fa-eye btn-primary mr-3" to={`/categories/${category.id}`}>View</Link>
+                                        <Link className="btn fa fa-edit btn-outline-primary mr-3" to={`/categories/edit/${category.id}`}> Edit</Link>
+                                        <Link className="btn fa fa-trash  btn-danger " to="" onClick={() => deleteCategory(category.id)}> Delete</Link>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -104,6 +105,5 @@ export default function Home() {
                 />
         </TableContainer>
         </div>
-
     );
 }

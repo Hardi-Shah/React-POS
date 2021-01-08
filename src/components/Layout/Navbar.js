@@ -21,7 +21,6 @@ import EditCategory from '../../components/Categories/CategoryList/EditCategory'
 import Category from '../../components/Categories/CategoryList/Category';
 import NotFound from '../../components/Categories/Pages/NotFound';
 import Home from '../../components/Categories/Pages/Home';
-
 import ProductList from '../../components/Products/Pages/ProductList';
 import ProductNotFound from '../../components/Products/Pages/ProductNotFound';
 import AddProduct from '../../components/Products/ProductList/AddProduct';
@@ -48,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     toolbar: {
-        paddingRight: 24, // keep right padding when drawer closed
+        paddingRight: 24, 
     },
     toolbarIcon: {
         display: 'flex',

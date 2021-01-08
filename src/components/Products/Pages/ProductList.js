@@ -9,16 +9,22 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
-import '../../Categories/CategoryList/Category.css';
+import '../../Products/ProductList/Product.css';
+import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     table: {
-        width: '50%',
+        width: '90%',
         margin: 'auto',
         marginTop: 50
     },
+    paper:{
+        marginTop:80,
+        width:'80%',
+        margin:'auto'
+    },
     head: {
-        backgroundColor: 'black'
+        backgroundColor: 'darkblue'
     },
     headcolor: {
         color: 'white'
@@ -59,8 +65,9 @@ export default function ProductList() {
     };
 
     return (
-        <TableContainer >
-            <Link className="btn  btn-primary AddBtn" to="/products/add">Add Product</Link>
+        <div className="container">
+        <TableContainer className={classes.paper} component={Paper}>
+            <Link className="btn  btn-outline-primary AddBtn" to="/products/add">Add Product</Link>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead >
                     <TableRow className={classes.head}>
@@ -97,5 +104,6 @@ export default function ProductList() {
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
         </TableContainer>
+        </div>
     );
 }
