@@ -5,7 +5,12 @@ import { getProductServiceById } from "../../../Services/ProductService";
 const Product = () => {
     let history = useHistory();
     const [product, setProduct] = useState({
-        name: ""
+        name: "",
+        price: "",
+        quantity: "",
+        selectOption: '',
+        gst: "",
+        discount: ""
     });
     const { id } = useParams();
 
@@ -26,6 +31,10 @@ const Product = () => {
             <hr />
             <ul className="list-group w-50">
                 <li className="list-group-item">ProductName: {product.name}</li>
+                <li className="list-group-item">Price: {product.price}</li>
+                <li className="list-group-item">Quantity: {product.quantity}</li>
+                <li className="list-group-item">GST: {product.gst}</li>
+                <li className="list-group-item">Discount: {product.discount}</li>
             </ul>
         </div>
     );

@@ -12,6 +12,10 @@ import TablePagination from "@material-ui/core/TablePagination";
 import '../../Categories/CategoryList/Category.css';
 import { useHistory } from "react-router-dom";
 import { Paper } from "@material-ui/core";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure()
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -25,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
     headcolor: {
         color: 'white'
     },
-    paper:{
-        marginTop:80,
-        width:'80%',
-        margin:'auto'
+    paper: {
+        marginTop: 80,
+        width: '80%',
+        margin: 'auto'
     },
     root: {
         '&:nth-of-type(odd)': {
@@ -52,8 +56,11 @@ export default function CategoryList() {
 
     };
     const deleteCategory = async id => {
-        await deleteCategoryServiceById(id)
-        history.push("/Category");
+        if (window.confirm("Do you want to continue ?")) {
+            await deleteCategoryServiceById(id)
+            toast.success('Deleted successfully!')
+            history.push("/Category");
+        }
     }
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -68,7 +75,7 @@ export default function CategoryList() {
 
     return (
         <div className="container">
-        <TableContainer className={classes.paper} component={Paper} >
+            <TableContainer className={classes.paper} component={Paper} >
                 <Link className="btn btn-outline-primary AddCategory" to="/categories/add">Add Category</Link>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead >
@@ -105,7 +112,7 @@ export default function CategoryList() {
                     onChangePage={handleChangePage}
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 />
-        </TableContainer>
+            </TableContainer>
         </div>
     );
 }
