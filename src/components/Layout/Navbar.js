@@ -14,7 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-import { mainListItems } from './ListItem';
+import { MainListItems } from './ListItem';
 
 function Copyright() {
     return (
@@ -149,7 +149,7 @@ export default function Navbar() {
                     </IconButton>
                 </div>
                 <Divider />
-                <List>{mainListItems}</List>
+                <List>{MainListItems}</List>
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />

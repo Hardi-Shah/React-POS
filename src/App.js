@@ -19,8 +19,8 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* <Navbar /> */}
-       
+        {/* <Navbar />
+       <Home/> */}
          {/* <Switch>
           <Route exact path="/" component={Home} />
            <Route exact path="/categories/add" component={AddCategory} /> 

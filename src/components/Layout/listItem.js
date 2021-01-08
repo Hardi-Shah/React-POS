@@ -6,7 +6,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CategoryIcon from '@material-ui/icons/Category';
 
-export const mainListItems = (
+export const MainListItems = (
     <div>
         <ListItem button>
             <ListItemIcon>
@@ -26,7 +26,7 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Products" />
         </ListItem>
-       
+
     </div>
 );
 

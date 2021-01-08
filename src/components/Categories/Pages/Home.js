@@ -4,6 +4,7 @@ import { getCategoryService, deleteCategoryServiceById } from "../../../Services
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
+import Box from '@material-ui/core/Box';
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
@@ -57,45 +58,49 @@ export default function Home() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-  
+
     return (
         <TableContainer >
-        <Link className="btn btn-primary AddBtn" to="/categories/add">Add Category</Link>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead >
-                    <TableRow className={classes.head}>
-                        <TableCell className={classes.headcolor}>#</TableCell>
-                        <TableCell className={classes.headcolor}>Name</TableCell>
-                        <TableCell className={classes.headcolor}>Action</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {categories
-                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        .map((category, index) => (
-                            <TableRow key={category.id} className={classes.root}>
-                                <TableCell component="th" scope="row">
-                                    {index + 1}
-                                </TableCell>
-                                <TableCell >{category.name}</TableCell>
-                                <TableCell>
-                                    <Link className="btn fa fa-eye btn-primary mr-2" to={`/categories/${category.id}`}>View</Link>
-                                    <Link className="btn btn-outline-primary mr-2" to={`/categories/edit/${category.id}`}> Edit</Link>
-                                    <Link className="btn  btn-danger mr-2" to="" onClick={() => deleteCategory(category.id)}> Delete</Link>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                </TableBody>
-            </Table>
-            <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={categories.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
+            <Box minWidth={1050}>
+                <Link className="btn btn-primary AddBtn" to="/categories/add">Add Category</Link>
+                <Table className={classes.table} aria-label="simple table">
+
+                    <TableHead >
+                        <TableRow className={classes.head}>
+                            <TableCell className={classes.headcolor}>#</TableCell>
+                            <TableCell className={classes.headcolor}>Name</TableCell>
+                            <TableCell className={classes.headcolor}>Action</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {categories
+                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            .map((category, index) => (
+                                <TableRow key={category.id} className={classes.root}>
+                                    <TableCell component="th" scope="row">
+                                        {index + 1}
+                                    </TableCell>
+                                    <TableCell >{category.name}</TableCell>
+                                    <TableCell>
+                                        <Link className="btn fa fa-eye btn-primary mr-2" to={`/categories/${category.id}`}>View</Link>
+                                        <Link className="btn btn-outline-primary mr-2" to={`/categories/edit/${category.id}`}> Edit</Link>
+                                        <Link className="btn  btn-danger mr-2" to="" onClick={() => deleteCategory(category.id)}> Delete</Link>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                    </TableBody>
+                </Table>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={categories.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+            </Box>
         </TableContainer>
+
     );
 }
