@@ -10,6 +10,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import '../../Categories/CategoryList/Category.css';
+import { useHistory } from "react-router-dom";
 import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +37,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Home() {
+export default function CategoryList() {
+    let history = useHistory();
     const classes = useStyles();
     const [categories, setCategories] = useState([]);
 
@@ -51,7 +53,7 @@ export default function Home() {
     };
     const deleteCategory = async id => {
         await deleteCategoryServiceById(id)
-        loadCategories();
+        history.push("/Category");
     }
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);

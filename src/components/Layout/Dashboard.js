@@ -16,16 +16,16 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import { MainListItems } from './ListItem';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import AddCategory from '../../components/Categories/CategoryList/AddCategory';
-import EditCategory from '../../components/Categories/CategoryList/EditCategory';
-import Category from '../../components/Categories/CategoryList/Category';
-import NotFound from '../../components/Categories/Pages/NotFound';
-import Home from '../../components/Categories/Pages/Home';
-import ProductList from '../../components/Products/Pages/ProductList';
-import ProductNotFound from '../../components/Products/Pages/ProductNotFound';
-import AddProduct from '../../components/Products/ProductList/AddProduct';
-import EditProduct from '../../components/Products/ProductList/EditProduct';
-import Product from '../../components/Products/ProductList/Product';
+import AddCategory from '../Categories/CategoryList/AddCategory';
+import EditCategory from '../Categories/CategoryList/EditCategory';
+import Category from '../Categories/CategoryList/Category';
+import NotFound from '../Categories/Pages/NotFound';
+import CategoryList from '../Categories/Pages/CategoryList';
+import ProductList from '../Products/Pages/ProductList';
+import ProductNotFound from '../Products/Pages/ProductNotFound';
+import AddProduct from '../Products/ProductList/AddProduct';
+import EditProduct from '../Products/ProductList/EditProduct';
+import Product from '../Products/ProductList/Product';
 
 function Copyright() {
     return (
@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Navbar() {
+export default function Dashboard() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
@@ -127,7 +127,7 @@ export default function Navbar() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    const Dashboard = () => {
+    const DashboardPage = () => {
         return (
             <Container maxWidth="lg" className={classes.container}>
                 <Box pt={4}>
@@ -175,8 +175,8 @@ export default function Navbar() {
                 <div className={classes.appBarSpacer} />
                 <Router>
                     <Switch>
-                        <Route exact path="/" component={Dashboard} />
-                        <Route exact path="/Category" component={Home} />
+                        <Route exact path="/" component={DashboardPage} />
+                        <Route exact path="/Category" component={CategoryList} />
                         <Route exact path="/categories/add" component={AddCategory} />
                         <Route exact path="/categories/edit/:id" component={EditCategory} />
                         <Route exact path="/categories/:id" component={Category} />

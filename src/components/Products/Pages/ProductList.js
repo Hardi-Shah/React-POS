@@ -8,10 +8,13 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import { useHistory } from "react-router-dom";
 import TablePagination from "@material-ui/core/TablePagination";
 import '../../Products/ProductList/Product.css';
 import { Paper } from "@material-ui/core";
-
+import {toast} from 'react-toastify';  
+import 'react-toastify/dist/ReactToastify.css';  
+toast.configure() 
 const useStyles = makeStyles((theme) => ({
     table: {
         width: '90%',
@@ -37,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProductList() {
+    let history = useHistory();
     const classes = useStyles();
     const [products, setProducts] = useState([]);
 
@@ -50,8 +54,9 @@ export default function ProductList() {
 
     };
     const deleteProduct = async id => {
+        toast('Are you sure you want to delete this?')
         await deleteProductServiceById(id)
-        loadProducts();
+        history.push("/Product");
     }
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
