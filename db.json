@@ -51,12 +51,12 @@
       "discount": "8"
     },
     {
-      "name": "waffers",
-      "price": "12",
-      "quantity": "1",
-      "selectOption": "clothing",
-      "gst": "2",
-      "discount": "10",
+      "name": "wafers",
+      "price": "10",
+      "quantity": "2",
+      "selectOption": "bevrages",
+      "gst": "1",
+      "discount": "5",
       "id": 6
     }
   ]

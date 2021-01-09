@@ -1,10 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import {Drawer,CssBaseline,Toolbar,AppBar,Typography,IconButton,List,Link,Divider} from '@material-ui/core';
+import {Drawer,CssBaseline,Toolbar,AppBar,Typography,IconButton,List,Divider} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import {Box,Container,Grid,Button,Paper,Card,CardHeader,CardMedia,CardContent,CardActions} from '@material-ui/core';
+import {Grid,Card,CardHeader,CardMedia,CardContent} from '@material-ui/core';
 
 import { MainListItems } from './ListItem';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -24,7 +24,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        maxwidth: 345
+        maxwidth: 345,
     },
     title: {
         fontSize: 14,
@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
+        fontSize:14
     },
     drawerPaper: {
         position: 'relative',
@@ -97,6 +98,8 @@ const useStyles = makeStyles((theme) => ({
     media: {
         height: 0,
         paddingTop: '56.25%',
+        width:'76%',
+        marginLeft:'38px' // 16:9
     },
     paper: {
         padding: theme.spacing(2),
@@ -106,6 +109,17 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'auto',
         flexDirection: 'column'
     },
+    gridContainer: {
+        paddingLeft: "30px",
+        paddingRight: "30px",
+        marginTop:30
+    },
+    cost:{
+        float:"left"
+    },
+    quantity:{
+        float:"right"
+    }
 }));
 
 export default function Dashboard() {
@@ -119,10 +133,96 @@ export default function Dashboard() {
     };
     const DashboardPage = () => {
         return (
-            <Container maxWidth="lg" className={classes.container}>
-                <Box pt={4}>
-                </Box>
-            </Container>
+            <Grid
+            container
+            spacing={5}
+            className={classes.gridContainer}
+            justify="center"
+        >
+            <Grid item xs={12} sm={6} md={3}>
+                <Card >
+                    <CardHeader
+                        title="Balaji"
+                    />
+                    <CardMedia
+                        className={classes.media}
+                        image="balaji.jpg"
+                        title="Balaji Wafers"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" className={classes.cost} component="p">
+                            Cost(₹): 10
+                        </Typography>
+                        <Typography variant="body2" className={classes.quantity} component="p" >
+                            Quantity: 2
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={3}>
+                <Card >
+                    <CardHeader
+                        title="Nescafe"
+                    />
+                    <CardMedia
+                        className={classes.media}
+                        image="coffee.jpg"
+                        title="Nescafe Classic"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" className={classes.cost} component="p">
+                            Cost(₹): 10
+                        </Typography>
+                        <Typography variant="body2" className={classes.quantity} component="p" >
+                            Quantity: 2
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={3}>
+                <Card >
+                    <CardHeader
+                        title="Red Label"
+                    />
+                    <CardMedia
+                        className={classes.media}
+                        image="red-label.jpg"
+                        title="Red Label Tea"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" className={classes.cost} component="p">
+                            Cost(₹): 150
+                        </Typography>
+                        <Typography variant="body2" className={classes.quantity} component="p" >
+                            Quantity: 3
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={3}>
+                <Card >
+                    <CardHeader
+                        title="Lays"
+                    />
+                    <CardMedia
+                        className={classes.media}
+                        image="lays.jpg"
+                        title="Lays Wafers"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" className={classes.cost} component="p">
+                            Cost(₹): 10
+                        </Typography>
+                        <Typography variant="body2" className={classes.quantity} component="p" >
+                            Quantity: 4
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Grid>      
+        </Grid>
         )
     }
 
