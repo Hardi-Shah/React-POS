@@ -6,7 +6,7 @@ import Dashboard from './components/Layout/Dashboard';
 function App() {
   return (
       <div className="App">
-         <Dashboard />
+        <Dashboard />
       </div>
   );
 }
