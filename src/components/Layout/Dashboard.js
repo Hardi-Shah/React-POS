@@ -17,7 +17,7 @@ import ProductNotFound from '../Products/Pages/ProductNotFound';
 import AddProduct from '../Products/ProductList/AddProduct';
 import EditProduct from '../Products/ProductList/EditProduct';
 import Product from '../Products/ProductList/Product';
-import DashboardPage from './DashboardPage';
+import ShowProduct from './ShowProduct';
 
 const drawerWidth = 240;
 
@@ -112,7 +112,7 @@ export default function Dashboard() {
     };
     const DashBoardPage = () => {
         return (
-            <DashboardPage />
+            <ShowProduct />
         )
     }
 
@@ -133,7 +133,7 @@ export default function Dashboard() {
                         </IconButton>
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             Dashboard
-          </Typography>
+                         </Typography>
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -166,7 +166,6 @@ export default function Dashboard() {
                         <Route exact path="/products/:id" component={Product} />
                         <Route exact path="/ProductNotFound" component={ProductNotFound} />
                     </Switch>
-
                 </main>
             </div>
         </Router>

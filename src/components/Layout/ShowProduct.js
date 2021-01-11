@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Card, CardHeader, CardMedia, CardContent, Typography } from '@material-ui/core';
+import { Grid, Card, CardHeader, CardMedia, CardContent, Typography, Link, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { getProductService } from '../../Services/ProductService';
+import CartProduct from './CartProduct';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function DashboardPage() {
+function ShowProduct() {
     const classes = useStyles();
     const [products, setProduct] = useState([]);
     useEffect(() => {
@@ -48,15 +49,16 @@ function DashboardPage() {
             className={classes.gridContainer}
             justify="center"
         >
-            <Grid item xs={12} sm={6} md={6}>
-                Cart
+            <Grid item xs={12} sm={6} md={6}>    
+             <CartProduct />
             </Grid>
+
             <Grid item xs={12} sm={6} md={6}>
                 <Grid container
                     justify="center">
                     {products.map(Product => {
                         return (
-                            <Grid item xs={4}  >
+                            <Grid item xs={4} key={Product.id}  >
                                 <Card style={{ maxWidth: 150 }} >
                                     <CardHeader
                                         title={Product.name}
@@ -77,11 +79,11 @@ function DashboardPage() {
                                 </Card>
                             </Grid>
                         )
-                    })}                    
+                    })}
                 </Grid>
             </Grid>
         </Grid>
 
     )
 }
-export default DashboardPage
+export default ShowProduct
