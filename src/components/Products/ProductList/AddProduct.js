@@ -82,7 +82,7 @@ const AddProduct = () => {
                                     <Field name="discount" type="text" placeholder=' Discount' />
                                     <ErrorMessage name="discount" component={TextError} />
                                 </div>
-                                <button type='submit' disabled={!formik.isValid} className="btn btn-success btn-block">Add Category</button>
+                                <button type='submit' disabled={!formik.isValid} className="btn btn-success btn-block">Add Product</button>
                             </Form>
                         )
                     }

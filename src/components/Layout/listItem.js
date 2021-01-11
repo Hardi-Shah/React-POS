@@ -5,31 +5,35 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CategoryIcon from '@material-ui/icons/Category';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import './ListItem.css';
 
 export const MainListItems = (
-    <Router>
-        <div>
-            <ListItem button component="a" href="/" >
-                <ListItemIcon>
-                    <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary="Dashboard" />
-            </ListItem>
-            <ListItem button component="a" href="/Category">
-                <ListItemIcon>
-                    <CategoryIcon />
-                </ListItemIcon>
-                <ListItemText primary="Categories" />
-            </ListItem>
-            <ListItem button component="a" href="/Product">
-                <ListItemIcon>
-                    <ShoppingCartIcon />
-                </ListItemIcon>
-                <ListItemText primary="Products" />
-            </ListItem>
-
-        </div>
-    </Router>
+<div>
+    <Link to="/" >
+        <ListItem button  >
+            <ListItemIcon>
+                <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" />
+        </ListItem>
+    </Link>
+    <Link to="/Category" >
+        <ListItem button >
+            <ListItemIcon>
+                <CategoryIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Categories" />
+        </ListItem>
+    </Link >
+    <Link to="/Product">
+        <ListItem button >
+            <ListItemIcon>
+                <ShoppingCartIcon />
+            </ListItemIcon>
+            <ListItemText primary="Products" />
+        </ListItem>
+    </Link>
+</div>
 );
 

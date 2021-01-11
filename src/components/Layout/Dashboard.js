@@ -1,10 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import {Drawer,CssBaseline,Toolbar,AppBar,Typography,IconButton,List,Divider} from '@material-ui/core';
+import { Drawer, CssBaseline, Toolbar, AppBar, Typography, IconButton, List, Divider } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import {Grid,Card,CardHeader,CardMedia,CardContent} from '@material-ui/core';
 
 import { MainListItems } from './ListItem';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -18,6 +17,7 @@ import ProductNotFound from '../Products/Pages/ProductNotFound';
 import AddProduct from '../Products/ProductList/AddProduct';
 import EditProduct from '../Products/ProductList/EditProduct';
 import Product from '../Products/ProductList/Product';
+import DashboardPage from './DashboardPage';
 
 const drawerWidth = 240;
 
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         maxwidth: 345,
     },
     title: {
-        fontSize: 14,
+        flexGrow:1
     },
     toolbar: {
         paddingRight: 24,
@@ -60,10 +60,6 @@ const useStyles = makeStyles((theme) => ({
     menuButtonHidden: {
         display: 'none',
     },
-    title: {
-        flexGrow: 1,
-        fontSize:14
-    },
     drawerPaper: {
         position: 'relative',
         whiteSpace: 'nowrap',
@@ -95,12 +91,6 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(4),
         margin: 'auto',
     },
-    media: {
-        height: 0,
-        paddingTop: '56.25%',
-        width:'76%',
-        marginLeft:'38px' // 16:9
-    },
     paper: {
         padding: theme.spacing(2),
         width: '80%',
@@ -108,17 +98,6 @@ const useStyles = makeStyles((theme) => ({
         margin: 'auto',
         overflow: 'auto',
         flexDirection: 'column'
-    },
-    gridContainer: {
-        paddingLeft: "30px",
-        paddingRight: "30px",
-        marginTop:30
-    },
-    cost:{
-        float:"left"
-    },
-    quantity:{
-        float:"right"
     }
 }));
 
@@ -131,98 +110,9 @@ export default function Dashboard() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    const DashboardPage = () => {
+    const DashBoardPage = () => {
         return (
-            <Grid
-            container
-            spacing={5}
-            className={classes.gridContainer}
-            justify="center"
-        >
-            <Grid item xs={12} sm={6} md={3}>
-                <Card >
-                    <CardHeader
-                        title="Balaji"
-                    />
-                    <CardMedia
-                        className={classes.media}
-                        image="balaji.jpg"
-                        title="Balaji Wafers"
-                    />
-                    <CardContent>
-                        <Typography variant="body2" className={classes.cost} component="p">
-                            Cost(₹): 10
-                        </Typography>
-                        <Typography variant="body2" className={classes.quantity} component="p" >
-                            Quantity: 2
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={3}>
-                <Card >
-                    <CardHeader
-                        title="Nescafe"
-                    />
-                    <CardMedia
-                        className={classes.media}
-                        image="coffee.jpg"
-                        title="Nescafe Classic"
-                    />
-                    <CardContent>
-                        <Typography variant="body2" className={classes.cost} component="p">
-                            Cost(₹): 10
-                        </Typography>
-                        <Typography variant="body2" className={classes.quantity} component="p" >
-                            Quantity: 2
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={3}>
-                <Card >
-                    <CardHeader
-                        title="Red Label"
-                    />
-                    <CardMedia
-                        className={classes.media}
-                        image="red-label.jpg"
-                        title="Red Label Tea"
-                    />
-                    <CardContent>
-                        <Typography variant="body2" className={classes.cost} component="p">
-                            Cost(₹): 150
-                        </Typography>
-                        <Typography variant="body2" className={classes.quantity} component="p" >
-                            Quantity: 3
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={3}>
-                <Card >
-                    <CardHeader
-                        title="Lays"
-                    />
-                    <CardMedia
-                        className={classes.media}
-                        image="lays.jpg"
-                        title="Lays Wafers"
-                    />
-                    <CardContent>
-                        <Typography variant="body2" className={classes.cost} component="p">
-                            Cost(₹): 10
-                        </Typography>
-                        <Typography variant="body2" className={classes.quantity} component="p" >
-                            Quantity: 4
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>      
-        </Grid>
+            <DashboardPage />
         )
     }
 
@@ -263,21 +153,21 @@ export default function Dashboard() {
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
-                    <Router>
-                        <Switch>
-                            <Route exact path="/" component={DashboardPage} />
-                            <Route exact path="/Category" component={CategoryList} />
-                            <Route exact path="/categories/add" component={AddCategory} />
-                            <Route exact path="/categories/edit/:id" component={EditCategory} />
-                            <Route exact path="/categories/:id" component={Category} />
-                            <Route exact path="/NotFound" component={NotFound} />
-                            <Route exact path="/Product" component={ProductList} />
-                            <Route exact path="/products/add" component={AddProduct} />
-                            <Route exact path="/products/edit/:id" component={EditProduct} />
-                            <Route exact path="/products/:id" component={Product} />
-                            <Route exact path="/ProductNotFound" component={ProductNotFound} />
-                        </Switch>
-                    </Router>
+
+                    <Switch>
+                        <Route exact path="/" component={DashBoardPage} />
+                        <Route exact path="/Category" component={CategoryList} />
+                        <Route exact path="/categories/add" component={AddCategory} />
+                        <Route exact path="/categories/edit/:id" component={EditCategory} />
+                        <Route exact path="/categories/:id" component={Category} />
+                        <Route exact path="/NotFound" component={NotFound} />
+                        <Route exact path="/Product" component={ProductList} />
+                        <Route exact path="/products/add" component={AddProduct} />
+                        <Route exact path="/products/edit/:id" component={EditProduct} />
+                        <Route exact path="/products/:id" component={Product} />
+                        <Route exact path="/ProductNotFound" component={ProductNotFound} />
+                    </Switch>
+
                 </main>
             </div>
         </Router>

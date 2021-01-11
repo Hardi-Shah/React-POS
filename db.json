@@ -49,15 +49,6 @@
       "quantity": "2",
       "gst": "2",
       "discount": "8"
-    },
-    {
-      "name": "wafers",
-      "price": "10",
-      "quantity": "2",
-      "selectOption": "bevrages",
-      "gst": "1",
-      "discount": "5",
-      "id": 6
     }
   ]
 }
