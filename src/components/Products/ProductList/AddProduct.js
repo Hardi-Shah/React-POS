@@ -1,10 +1,11 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { useHistory } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import './Product.css';
 import { addProductService } from "../../../Services/ProductService";
 import TextError from "./TextError";
+import { getCategoryService } from "../../../Services/CategoryService";
 
 const AddProduct = () => {
     let history = useHistory();
@@ -14,10 +15,13 @@ const AddProduct = () => {
         quantity: "",
         selectOption: '',
         gst: "",
-        discount: ""
+        discount: "",
+        image:""
     };
+    const [categories, setCategory] = useState([]);
     const validationSchema = Yup.object({
         name: Yup.string().required('ProductName is Reuired'),
+        image:Yup.mixed().required('Product image is Required'),
         price: Yup.number().typeError("That doesn't look like a  number")
             .positive("A price number can't start with a minus").required('Price is Reuired'),
         quantity: Yup.number().typeError("That doesn't look like a  number")
@@ -35,6 +39,14 @@ const AddProduct = () => {
         await addProductService(values)
         history.push("/Product");
     }
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
+    const loadCategories = async () => {
+        const result = await getCategoryService()
+        setCategory(result.data.reverse());
+    };
 
     return (
         <div className="container">
@@ -60,15 +72,17 @@ const AddProduct = () => {
                                     <label>Quantity </label>
                                     <Field name="quantity" type="text" placeholder=' Quantity' />
                                     <ErrorMessage name="quantity" component={TextError} />
+
                                 </div>
                                 <div >
                                     <label>Category Name</label>
                                     <Field as='select' name='selectOption'>
                                         <option value=''>Select Category</option>
-                                        <option value='clothing'>Clothing</option>
-                                        <option value='bevrages'>Bevarages</option>
-                                        <option value='food'>Food</option>
-                                        <option value='electronics'>Electronics</option>
+                                        {categories.map(Category => {
+                                            return (
+                                            <option key={Category.name} value={Category.id}>{Category.name}</option>
+                                            )
+                                        })}
                                     </Field>
                                     <ErrorMessage name="selectOption" component={TextError} />
                                 </div>
@@ -81,6 +95,11 @@ const AddProduct = () => {
                                     <label>Discount</label>
                                     <Field name="discount" type="text" placeholder=' Discount' />
                                     <ErrorMessage name="discount" component={TextError} />
+                                </div>
+                                <div >
+                                    <label>Image</label>
+                                    <Field name="image" type="file" placeholder='image' />
+                                    <ErrorMessage name="image" component={TextError} />
                                 </div>
                                 <button type='submit' disabled={!formik.isValid} className="btn btn-success btn-block">Add Product</button>
                             </Form>

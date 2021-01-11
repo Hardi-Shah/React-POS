@@ -3,33 +3,42 @@ import { useHistory, useParams } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import './Product.css';
-import { editProductService, getProductServiceById } from "../../../Services/ProductService";
+import { editProductService, getProductServiceById} from "../../../Services/ProductService";
+import { getCategoryService } from "../../../Services/CategoryService";
 import TextError from "./TextError";
 
 const EditProduct = () => {
     let history = useHistory();
     const { id } = useParams();
+    const [categories, setCategory] = useState([]);
     const [product, setProduct] = useState({
         name: "",
         price: "",
         quantity: "",
         selectOption: '',
         gst: "",
-        discount: ""
+        discount: "",
+        image:""
     });
     const handleChange = e => {
         setProduct({ ...product, [e.target.name]: e.target.value })
     };
+//    const  handleFileUpload = (event) => {
+//         setProduct({image: event.currentTarget.files[0]})}
+//         }
+    
     const initialValues = {
         name: "",
         price: "",
         quantity: "",
         selectOption: '',
         gst: "",
-        discount: ""
+        discount: "",
+        image:""
     };
     const validationSchema = Yup.object({
         name: Yup.string().required('ProductName is Reuired'),
+        image:Yup.mixed().required('Product image is Required'),
         price: Yup.number().typeError("That doesn't look like a  number")
             .positive("A price number can't start with a minus").required('Price is Reuired'),
         quantity: Yup.number().typeError("That doesn't look like a  number")
@@ -50,6 +59,7 @@ const EditProduct = () => {
 
     useEffect(() => {
         loadProduct();
+        loadCategories();
     }, []);
 
     const loadProduct = async () => {
@@ -59,7 +69,13 @@ const EditProduct = () => {
                 history.push("/ProductNotFound");
             })
     };
-    const { name,price,quantity,selectOption,gst,discount } = product;
+    const loadCategories = async () => {
+        const result = await getCategoryService()
+        setCategory(result.data.reverse());
+
+    };
+
+    const { name, price, quantity, selectOption, gst, discount,image } = product;
     return (
         <div className="container">
             <div className="w-75 mx-auto shadow p-5 AddStyle" >
@@ -90,10 +106,11 @@ const EditProduct = () => {
                                     <label>Category Name</label>
                                     <Field as='select' name='selectOption' value={selectOption} onChange={handleChange}>
                                         <option value=''>Select Category</option>
-                                        <option value='clothing'>Clothing</option>
-                                        <option value='bevrages'>Bevarages</option>
-                                        <option value='food'>Food</option>
-                                        <option value='electronics'>Electronics</option>
+                                        {categories.map(Category => {
+                                            return (
+                                                <option key={Category.name} value={Category.id}>{Category.name}</option>
+                                            )
+                                        })}
                                     </Field>
                                     <ErrorMessage name="selectOption" component={TextError} />
                                 </div>
@@ -107,6 +124,11 @@ const EditProduct = () => {
                                     <Field name="discount" value={discount} onChange={handleChange} type="text" placeholder=' Discount' />
                                     <ErrorMessage name="discount" component={TextError} />
                                 </div>
+                                {/* <div >
+                                    <label>Image</label>
+                                    <Field name="image" value={image} onChange={handleChange} type="file" placeholder='image' />
+                                    <ErrorMessage name="image" component={TextError} />
+                                </div> */}
                                 <button type='submit' disabled={!formik.isValid} className="btn btn-warning btn-block ">Edit Product</button>
                             </Form>
                         )

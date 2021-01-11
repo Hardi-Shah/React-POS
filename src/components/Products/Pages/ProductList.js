@@ -14,6 +14,12 @@ import '../../Products/ProductList/Product.css';
 import { Paper } from "@material-ui/core";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 toast.configure()
 
@@ -45,7 +51,16 @@ export default function ProductList() {
     let history = useHistory();
     const classes = useStyles();
     const [products, setProducts] = useState([]);
+   
+    //const [open, setOpen] = React.useState(false);
 
+//   const handleClickOpen = () => {
+//     setOpen(true);
+//   };
+
+//   const handleClose = () => {
+//     setOpen(false);
+//   };
     useEffect(() => {
         loadProducts();
     }, []);
@@ -55,8 +70,8 @@ export default function ProductList() {
         setProducts(result.data.reverse());
 
     };
-    const deleteProduct = async id => {
-        if (window.confirm("Do you want to continue ?")) {
+    const deleteProduct = async id => {  
+         if (window.confirm("Do you want to continue ?")) {
             await deleteProductServiceById(id)
             toast.success('Deleted successfully!')
             history.push("/Product");
@@ -106,7 +121,7 @@ export default function ProductList() {
                                     <TableCell>
                                         <Link className="btn fa fa-eye btn-primary mr-2" to={`/products/${product.id}`}>View</Link>
                                         <Link className="btn fa fa-edit btn-outline-primary mr-2" to={`/products/edit/${product.id}`}> Edit</Link>
-                                        <Link className="btn fa fa-trash btn-danger mr-2" to="" onClick={() => deleteProduct(product.id)}> Delete</Link>
+                                         <Link className="btn fa fa-trash btn-danger mr-2" to="" onClick={deleteProduct}> Delete</Link> 
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -122,6 +137,28 @@ export default function ProductList() {
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 />
             </TableContainer>
+            {/* <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Let Google help apps determine location. This means sending anonymous location data to
+            Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Disagree
+          </Button>
+          <Button onClick={deleteProduct} color="primary" autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog> */}
         </div>
     );
 }

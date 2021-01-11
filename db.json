@@ -20,35 +20,63 @@
   "products": [
     {
       "id": 1,
-      "name": "Vegetables",
-      "price": "70",
+      "name": "Balaji",
+      "price": "10",
       "quantity": "4",
-      "gst": "2",
-      "discount": "5"
+      "gst": "1",
+      "discount": "2",
+      "image": "balaji.jpg",
+      "selectOption": "3"
     },
     {
       "id": 2,
-      "name": "Lights",
+      "name": "Nescafe",
       "price": "100",
-      "quantity": "4",
+      "quantity": "3",
       "gst": "3",
-      "discount": "5"
+      "discount": "5",
+      "image": "coffee.jpg",
+      "selectOption": "3"
     },
     {
-      "name": "Tea",
+      "name": "Red Label",
       "id": 3,
       "price": "170",
       "quantity": "1",
       "gst": "3",
-      "discount": "10"
+      "discount": "10",
+      "image": "red-label.jpg",
+      "selectOption": "3"
     },
     {
-      "name": "Coffee",
+      "name": "Lays",
       "id": 4,
-      "price": "100",
+      "price": "10",
       "quantity": "2",
-      "gst": "2",
-      "discount": "8"
+      "gst": "1",
+      "discount": "2",
+      "selectOption": "3",
+      "image": "lays.jpg"
+    },
+    {
+      "name": "Maggi",
+      "price": "12",
+      "quantity": "2",
+      "selectOption": "3",
+      "gst": "1",
+      "discount": "2",
+      "image": "maggi.jpg",
+      "id": 5
+    },
+    {
+      "name": " T-shirts",
+      "price": "600",
+      "quantity": "1",
+      "selectOption": "4",
+      "gst": "3",
+      "discount": "20",
+      "image": "tshirtwomen.jpg",
+      "id": 6
     }
   ]
 }

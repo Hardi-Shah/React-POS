@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         maxwidth: 345,
     },
     title: {
-        flexGrow:1
+        flexGrow: 1
     },
     toolbar: {
         paddingRight: 24,
@@ -153,7 +153,6 @@ export default function Dashboard() {
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
-
                     <Switch>
                         <Route exact path="/" component={DashBoardPage} />
                         <Route exact path="/Category" component={CategoryList} />

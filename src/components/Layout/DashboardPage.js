@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, Card, CardHeader, CardMedia, CardContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { getProductService } from '../../Services/ProductService';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -11,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
     media: {
         height: 0,
         paddingTop: '56.25%',
-        width: '76%',
         marginLeft: '38px'
     },
     title: {
@@ -32,101 +32,52 @@ const useStyles = makeStyles((theme) => ({
 
 function DashboardPage() {
     const classes = useStyles();
+    const [products, setProduct] = useState([]);
+    useEffect(() => {
+        loadProducts();
+    }, []);
+
+    const loadProducts = async () => {
+        const result = await getProductService()
+        setProduct(result.data);
+    };
     return (
         <Grid
             container
-            spacing={5}
+            spacing={3}
             className={classes.gridContainer}
             justify="center"
         >
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} md={6}>
                 Cart
             </Grid>
-            <Grid item xs={12} sm={6}>
-                <Grid container>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card >
-                            <CardHeader
-                                title="Balaji"
-                            />
-                            <CardMedia
-                                className={classes.media}
-                                image="balaji.jpg"
-                                title="Balaji Wafers"
-                            />
-                            <CardContent>
-                                <Typography variant="body2" className={classes.cost} component="p">
-                                    Cost(₹): 10
-                        </Typography>
-                                <Typography variant="body2" className={classes.quantity} component="p" >
-                                    Quantity: 2
-                        </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card >
-                            <CardHeader
-                                title="Nescafe"
-                            />
-                            <CardMedia
-                                className={classes.media}
-                                image="coffee.jpg"
-                                title="Nescafe Classic"
-                            />
-                            <CardContent>
-                                <Typography variant="body2" className={classes.cost} component="p">
-                                    Cost(₹): 10
-                        </Typography>
-                                <Typography variant="body2" className={classes.quantity} component="p" >
-                                    Quantity: 2
-                        </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card >
-                            <CardHeader
-                                title="Red Label"
-                            />
-                            <CardMedia
-                                className={classes.media}
-                                image="red-label.jpg"
-                                title="Red Label Tea"
-                            />
-                            <CardContent>
-                                <Typography variant="body2" className={classes.cost} component="p">
-                                    Cost(₹): 150
-                        </Typography>
-                                <Typography variant="body2" className={classes.quantity} component="p" >
-                                    Quantity: 3
-                        </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card >
-                            <CardHeader
-                                title="Lays"
-                            />
-                            <CardMedia
-                                className={classes.media}
-                                image="lays.jpg"
-                                title="Lays Wafers"
-                            />
-                            <CardContent>
-                                <Typography variant="body2" className={classes.cost} component="p">
-                                    Cost(₹): 10
-                        </Typography>
-                                <Typography variant="body2" className={classes.quantity} component="p" >
-                                    Quantity: 4
-                        </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
+            <Grid item xs={12} sm={6} md={6}>
+                <Grid container
+                    justify="center">
+                    {products.map(Product => {
+                        return (
+                            <Grid item xs={4}  >
+                                <Card style={{ maxWidth: 150 }} >
+                                    <CardHeader
+                                        title={Product.name}
+                                    />
+                                    <CardMedia
+                                        className={classes.media}
+                                        image={Product.image}
+                                        title={Product.name}
+                                    />
+                                    <CardContent>
+                                        <Typography variant="body2" className={classes.cost} component="p">
+                                            Cost(₹):{Product.price}
+                                        </Typography>
+                                        <Typography variant="body2" className={classes.quantity} component="p" >
+                                            Quantity:{Product.quantity}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        )
+                    })}                    
                 </Grid>
             </Grid>
         </Grid>
