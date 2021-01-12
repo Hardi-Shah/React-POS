@@ -1,33 +1,23 @@
 {
   "categories": [
     {
-      "id": 1,
-      "name": "Food"
-    },
-    {
       "id": 2,
       "name": "Electronics"
     },
     {
-      "name": "Bevarages",
+      "name": "Beverages",
       "id": 3
     },
     {
       "name": "Clothing",
       "id": 4
+    },
+    {
+      "name": "Food",
+      "id": 5
     }
   ],
   "products": [
-    {
-      "id": 1,
-      "name": "Balaji",
-      "price": "10",
-      "quantity": "4",
-      "gst": "1",
-      "discount": "2",
-      "image": "balaji.jpg",
-      "selectOption": "3"
-    },
     {
       "id": 2,
       "name": "Nescafe",
@@ -49,14 +39,14 @@
       "selectOption": "3"
     },
     {
-      "name": "Lays",
-      "id": 4,
-      "price": "10",
-      "quantity": "2",
-      "gst": "1",
-      "discount": "2",
-      "selectOption": "3",
-      "image": "lays.jpg"
+      "name": " T-shirts",
+      "price": "600",
+      "quantity": "1",
+      "selectOption": "4",
+      "gst": "3",
+      "discount": "20",
+      "image": "tshirtwomen.jpg",
+      "id": 6
     },
     {
       "name": "Maggi",
@@ -66,17 +56,27 @@
       "gst": "1",
       "discount": "2",
       "image": "maggi.jpg",
-      "id": 5
+      "id": 7
     },
     {
-      "name": " T-shirts",
-      "price": "600",
-      "quantity": "1",
-      "selectOption": "4",
-      "gst": "3",
-      "discount": "20",
-      "image": "tshirtwomen.jpg",
-      "id": 6
+      "name": "Balaji",
+      "price": "10",
+      "quantity": "3",
+      "selectOption": "3",
+      "gst": "1",
+      "discount": "1",
+      "image": "balaji.jpg",
+      "id": 8
+    },
+    {
+      "name": "Lays",
+      "price": "10",
+      "quantity": "2",
+      "selectOption": "3",
+      "gst": "1",
+      "discount": "1",
+      "image": "lays.jpg",
+      "id": 9
     }
   ]
 }

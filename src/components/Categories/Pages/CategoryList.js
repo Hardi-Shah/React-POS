@@ -2,18 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getCategoryService, deleteCategoryServiceById } from "../../../Services/CategoryService";
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TablePagination from "@material-ui/core/TablePagination";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from "@material-ui/core";
 import '../../Categories/CategoryList/Category.css';
 import { useHistory } from "react-router-dom";
-import { Paper } from "@material-ui/core";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Dialog, Button, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper } from '@material-ui/core';
 
 toast.configure()
 
@@ -30,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'white'
     },
     paper: {
-        marginTop:102,
+        marginTop: 102,
         width: '80%',
         margin: 'auto'
     },
@@ -45,6 +39,16 @@ export default function CategoryList() {
     let history = useHistory();
     const classes = useStyles();
     const [categories, setCategories] = useState([]);
+    const [id, setId] = useState();
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     useEffect(() => {
         loadCategories();
@@ -56,11 +60,11 @@ export default function CategoryList() {
 
     };
     const deleteCategory = async id => {
-        if (window.confirm("Do you want to continue ?")) {
-            await deleteCategoryServiceById(id)
-            toast.success('Deleted successfully!')
-            history.push("/Category");
-        }
+        await deleteCategoryServiceById(id)
+        setOpen(false)
+        toast.success('Deleted successfully!')
+        history.push("/Category");
+        loadCategories();
     }
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -97,7 +101,7 @@ export default function CategoryList() {
                                     <TableCell>
                                         <Link className="btn fa fa-eye btn-primary mr-3" to={`/categories/${category.id}`}>View</Link>
                                         <Link className="btn fa fa-edit btn-outline-primary mr-3" to={`/categories/edit/${category.id}`}> Edit</Link>
-                                        <Link className="btn fa fa-trash  btn-danger " to="" onClick={() => deleteCategory(category.id)}> Delete</Link>
+                                        <button className="btn fa fa-trash btn-danger mr-2" to="/Category" onClick={()=>{setId(category.id);handleClickOpen()}}> Delete</button>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -113,6 +117,27 @@ export default function CategoryList() {
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 />
             </TableContainer>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"Delete Product"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                       Are You Sure to Delete???
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Cancel
+                     </Button>
+                    <Button onClick={() => deleteCategory(id)} color="primary" autoFocus>
+                      Ok
+                     </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }
