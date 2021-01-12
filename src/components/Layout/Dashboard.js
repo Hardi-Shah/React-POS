@@ -26,9 +26,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         maxwidth: 345,
     },
-    title: {
-        flexGrow: 1
-    },
     toolbar: {
         paddingRight: 24,
     },
@@ -68,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
+        backgroundColor:'#3f51b5'
     },
     drawerPaperClose: {
         overflowX: 'hidden',
@@ -85,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         height: '100vh',
         overflow: 'auto',
+        margin:'auto'
     },
     container: {
         paddingTop: theme.spacing(4),
@@ -132,12 +131,12 @@ export default function Dashboard() {
                             <MenuIcon />
                         </IconButton>
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                            Dashboard
+                          POS-System
                          </Typography>
                     </Toolbar>
                 </AppBar>
-                <Drawer
-                    variant="permanent"
+                <Drawer 
+                    variant="permanent" 
                     classes={{
                         paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
                     }}
@@ -145,7 +144,7 @@ export default function Dashboard() {
                 >
                     <div className={classes.toolbarIcon}>
                         <IconButton onClick={handleDrawerClose}>
-                            <ChevronLeftIcon />
+                            <ChevronLeftIcon style={{color:'white'}}/>
                         </IconButton>
                     </div>
                     <Divider />

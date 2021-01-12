@@ -13,7 +13,8 @@ const useStyles = makeStyles((theme) => ({
     media: {
         height: 0,
         paddingTop: '56.25%',
-        marginLeft: '38px'
+        marginLeft: '22px',
+        marginRight:'22px'
     },
     title: {
         fontSize: 14,
@@ -24,10 +25,19 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 30
     },
     cost: {
-        float: "left"
+        float: "left",
+        marginLeft:'-15px'
     },
     quantity: {
-        float: "right"
+        float: "right",
+        marginRight:'-15px'
+    },
+    grid:{
+        marginRight:'-50px'
+    },
+    card:{
+        maxWidth: 150,
+        marginBottom:'20px'
     }
 }))
 
@@ -53,13 +63,13 @@ function ShowProduct() {
              <CartProduct />
             </Grid>
 
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={12} sm={6} md={6} className={classes.grid}>
                 <Grid container
                     justify="center">
                     {products.map(Product => {
                         return (
                             <Grid item xs={4} key={Product.id}  >
-                                <Card style={{ maxWidth: 150 }} >
+                                <Card  className={classes.card}  >
                                     <CardHeader
                                         title={Product.name}
                                     />

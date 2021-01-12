@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'white'
     },
     paper: {
-        marginTop: 80,
+        marginTop:102,
         width: '80%',
         margin: 'auto'
     },

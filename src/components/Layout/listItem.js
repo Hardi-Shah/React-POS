@@ -11,27 +11,27 @@ import './ListItem.css';
 export const MainListItems = (
 <div>
     <Link to="/" >
-        <ListItem button  >
+        <ListItem button >
             <ListItemIcon>
-                <DashboardIcon />
+                <DashboardIcon className='icon'/>
             </ListItemIcon>
-            <ListItemText primary="Dashboard" />
+            <ListItemText primary="Dashboard" className='itemtext'/>
         </ListItem>
     </Link>
     <Link to="/Category" >
         <ListItem button >
             <ListItemIcon>
-                <CategoryIcon/>
+                <CategoryIcon className='icon'/>
             </ListItemIcon>
-            <ListItemText primary="Categories" />
+            <ListItemText primary="Categories" className='itemtext' />
         </ListItem>
     </Link >
     <Link to="/Product">
         <ListItem button >
             <ListItemIcon>
-                <ShoppingCartIcon />
+                <ShoppingCartIcon className='icon'/>
             </ListItemIcon>
-            <ListItemText primary="Products" />
+            <ListItemText primary="Products" className='itemtext'/>
         </ListItem>
     </Link>
 </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow,TablePagination,Link,Paper} from "@material-ui/core";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Link, Paper } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { getProductService } from '../../Services/ProductService';
 
@@ -8,7 +8,12 @@ const useStyles = makeStyles((theme) => ({
         margin: 'auto',
     },
     paper: {
-        margin: 'auto'
+        margin: 'auto',
+        width: '537px',
+        marginLeft: '-25px'
+    },
+    headcolor: {
+        fontWeight: 600
     }
 }))
 
@@ -60,8 +65,8 @@ function CartProduct() {
                                 <TableCell>{product.quantity}</TableCell>
                                 <TableCell>{product.gst}</TableCell>
                                 <TableCell>
-                                    <Link className="btn fa fa-plus  mr-2" to={`/products/${product.id}`}></Link>
-                                    <Link className="btn fa fa-minus  mr-2" to={`/products/edit/${product.id}`}> </Link>
+                                    <button className="btn fa fa-plus  mr-2" ></button>
+                                    <button className="btn fa fa-minus  mr-2" > </button>
                                 </TableCell>
                                 <TableCell></TableCell>
                             </TableRow>
@@ -69,7 +74,7 @@ function CartProduct() {
                 </TableBody>
             </Table>
             <TablePagination
-                rowsPerPageOptions={[3, 8, 10,15]}
+                rowsPerPageOptions={[3, 8, 10, 15]}
                 component="div"
                 count={products.length}
                 rowsPerPage={rowsPerPage}
@@ -77,7 +82,7 @@ function CartProduct() {
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
-        </TableContainer>
+        </TableContainer >
     )
 }
 

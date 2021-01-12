@@ -1,6 +1,9 @@
 a:hover{
     text-decoration: none;
 }
-a{
-    color: black;
+.icon{
+    color: white;
+}
+.itemtext{
+    color:white
 }
