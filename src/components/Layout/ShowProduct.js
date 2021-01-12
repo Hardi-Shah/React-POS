@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Card, CardHeader, CardMedia, CardContent, Typography, Link, Paper } from '@material-ui/core';
+import { Grid, Card, CardHeader, CardMedia, CardContent, Typography,CardActionArea, Link, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { getProductService } from '../../Services/ProductService';
 import CartProduct from './CartProduct';
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         height: 0,
         paddingTop: '56.25%',
         marginLeft: '22px',
-        marginRight:'22px'
+        marginRight: '22px'
     },
     title: {
         fontSize: 14,
@@ -26,24 +26,26 @@ const useStyles = makeStyles((theme) => ({
     },
     cost: {
         float: "left",
-        marginLeft:'-15px'
+        marginLeft: '-15px'
     },
     quantity: {
         float: "right",
-        marginRight:'-15px'
+        marginRight: '-15px'
     },
-    grid:{
-        marginRight:'-50px'
+    grid: {
+        marginRight: '-50px'
     },
-    card:{
+    card: {
         maxWidth: 150,
-        marginBottom:'20px'
+        marginBottom: '20px'
     }
 }))
 
 function ShowProduct() {
     const classes = useStyles();
     const [products, setProduct] = useState([]);
+
+    const [cart, setCart] = useState([]);
     useEffect(() => {
         loadProducts();
     }, []);
@@ -52,6 +54,24 @@ function ShowProduct() {
         const result = await getProductService()
         setProduct(result.data);
     };
+
+    const addToCart = (Product) => {
+        setCart([...cart,Product])
+        // let newCart = [...cart];
+        // let itemInCart = newCart.find(
+        //     (item) => Product.name === item.name
+        // );
+        // if (itemInCart) {
+        //     itemInCart.quantity++;
+        // } else {
+        //     itemInCart = {
+        //         ...Product,
+        //         quantity: 1,
+        //     };
+        //     newCart.push(itemInCart);
+        // }
+        // setCart(newCart);
+    };
     return (
         <Grid
             container
@@ -59,33 +79,34 @@ function ShowProduct() {
             className={classes.gridContainer}
             justify="center"
         >
-            <Grid item xs={12} sm={6} md={6}>    
-             <CartProduct />
+            <Grid item xs={12} sm={6} md={6}>
+                <CartProduct />
             </Grid>
-
             <Grid item xs={12} sm={6} md={6} className={classes.grid}>
                 <Grid container
                     justify="center">
                     {products.map(Product => {
                         return (
                             <Grid item xs={4} key={Product.id}  >
-                                <Card  className={classes.card}  >
-                                    <CardHeader
-                                        title={Product.name}
-                                    />
-                                    <CardMedia
-                                        className={classes.media}
-                                        image={Product.image}
-                                        title={Product.name}
-                                    />
-                                    <CardContent>
-                                        <Typography variant="body2" className={classes.cost} component="p">
-                                            Cost(₹):{Product.price}
-                                        </Typography>
-                                        <Typography variant="body2" className={classes.quantity} component="p" >
-                                            Quantity:{Product.quantity}
-                                        </Typography>
-                                    </CardContent>
+                                <Card className={classes.card}  >
+                                <CardActionArea onClick={() => addToCart(Product)}>
+                                        <CardHeader
+                                            title={Product.name}
+                                        />
+                                        <CardMedia
+                                            className={classes.media}
+                                            image={Product.image}
+                                            title={Product.name}
+                                        />
+                                        <CardContent>
+                                            <Typography variant="body2" className={classes.cost} component="p">
+                                                Cost(₹):{Product.price}
+                                            </Typography>
+                                            <Typography variant="body2" className={classes.quantity} component="p" >
+                                                Quantity:{Product.quantity}
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
                                 </Card>
                             </Grid>
                         )
