@@ -18,6 +18,7 @@ import AddProduct from '../Products/ProductList/AddProduct';
 import EditProduct from '../Products/ProductList/EditProduct';
 import Product from '../Products/ProductList/Product';
 import ShowProduct from './ShowProduct';
+import CartProduct from './CartProduct';
 
 const drawerWidth = 240;
 
@@ -65,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        backgroundColor:'#3f51b5'
+        backgroundColor: '#3f51b5'
     },
     drawerPaperClose: {
         overflowX: 'hidden',
@@ -83,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         height: '100vh',
         overflow: 'auto',
-        margin:'auto'
+        margin: 'auto'
     },
     container: {
         paddingTop: theme.spacing(4),
@@ -111,7 +112,7 @@ export default function Dashboard() {
     };
     const DashBoardPage = () => {
         return (
-            <ShowProduct />
+                <ShowProduct />
         )
     }
 
@@ -131,12 +132,12 @@ export default function Dashboard() {
                             <MenuIcon />
                         </IconButton>
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                          POS-System
+                            POS-System
                          </Typography>
                     </Toolbar>
                 </AppBar>
-                <Drawer 
-                    variant="permanent" 
+                <Drawer
+                    variant="permanent"
                     classes={{
                         paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
                     }}
@@ -144,7 +145,7 @@ export default function Dashboard() {
                 >
                     <div className={classes.toolbarIcon}>
                         <IconButton onClick={handleDrawerClose}>
-                            <ChevronLeftIcon style={{color:'white'}}/>
+                            <ChevronLeftIcon style={{ color: 'white' }} />
                         </IconButton>
                     </div>
                     <Divider />

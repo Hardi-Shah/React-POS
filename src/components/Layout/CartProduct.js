@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination,Modal, Link, Paper } from "@material-ui/core";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Modal, Link, Paper } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-import { getProductService } from '../../Services/ProductService';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -9,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         margin: 'auto',
-        width: '537px',
+        width: '540px',
         marginLeft: '-25px'
     },
     headcolor: {
@@ -22,22 +21,25 @@ const useStyles = makeStyles((theme) => ({
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-      },
+    },
 }))
 
-function CartProduct() {
+function CartProduct(props) {
     const classes = useStyles();
-
     const [cart, setCart] = useState([]);
 
-    useEffect(() => {
-        loadProducts();
-    }, []);
+    const { cartitem, addToCart, removeFromCart } = props;
 
-    const loadProducts = async () => {
-        const result = await getProductService()
-        setCart(result.data);
-    };
+    const itemsPrice = cartitem.reduce((a, c) => a + c.price * c.quantity + (c.price * c.quantity * c.gst / 100), 0);
+    const taxPrice = itemsPrice * 0.14;
+    const shippingPrice = itemsPrice > 2000 ? 0 : 20;
+    const totalPrice = itemsPrice + taxPrice + shippingPrice 
+
+    useEffect(() => {
+        const { cartitem } = props
+        setCart({ cartitem })
+    }, [props]);
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const handleChangePage = (event, newPage) => {
@@ -48,33 +50,28 @@ function CartProduct() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-    const removeFromCart = (productToRemove) => {
-        setCart(
-            cart.filter((product) => product !== productToRemove)
-        );
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
     };
 
+    const handleClose = () => {
+        setOpen(false);
+    };
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const body = (
-    <div  className={classes.paper1}>
-      <h2 id="simple-modal-title">Thank you for shopping with us!!</h2>
-      <p id="simple-modal-description">
-       {cart.name}
-      </p>
-    </div>
-  );
+    const body = (
+        <div className={classes.paper1}>
+            <h2 id="simple-modal-title">Thank you for shopping with us!!</h2>
+            <p id="simple-modal-description">
+                {cart.name}
+            </p>
+        </div>
+    );
     return (
         <>
+            <div>{cartitem.length === 0 && <p>Cart is empty</p>}</div>
             <TableContainer className={classes.paper} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead >
@@ -89,7 +86,7 @@ function CartProduct() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {cart
+                        {cartitem && cartitem
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((product, index) => (
                                 <TableRow key={product.id} className={classes.root}>
@@ -101,10 +98,10 @@ function CartProduct() {
                                     <TableCell>{product.quantity}</TableCell>
                                     <TableCell>{product.gst}</TableCell>
                                     <TableCell>
-                                        <button className="btn fa fa-plus  mr-2" ></button>
+                                        <button onClick={() => addToCart(product)} className="btn fa fa-plus  mr-2" ></button>
                                         <button onClick={() => removeFromCart(product)} className="btn fa fa-minus  mr-2" > </button>
                                     </TableCell>
-                                    <TableCell>{(product.price * product.quantity)}</TableCell>
+                                    <TableCell>{product.price * product.quantity + (product.price * product.quantity * product.gst / 100)}</TableCell>
                                 </TableRow>
                             ))}
                     </TableBody>
@@ -112,13 +109,24 @@ function CartProduct() {
                 <TablePagination
                     rowsPerPageOptions={[3, 8, 10, 15]}
                     component="div"
-                    count={cart.length}
+                    count={cartitem.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 />
             </TableContainer >
+            {cartitem.length !== 0 && (
+                <>
+                    <hr></hr>
+                    <div className="row">
+                        <div className="text-right">
+                            <strong>Total Price:₹{totalPrice.toFixed(2)}</strong>
+                        </div>
+                    </div>
+                </>
+            )}
+
 
             <button className='btn btn-primary' onClick={handleOpen}>
                 Invoice
