@@ -30,14 +30,12 @@ function CartProduct(props) {
 
     const { cartitem, addToCart, removeFromCart } = props;
 
-    const itemsPrice = cartitem.reduce((a, c) => a + c.price * c.quantity + (c.price * c.quantity * c.gst / 100), 0);
-    const taxPrice = itemsPrice * 0.14;
-    const shippingPrice = itemsPrice > 2000 ? 0 : 20;
-    const totalPrice = itemsPrice + taxPrice + shippingPrice 
+    const itemsPrice = cartitem.reduce((a, c) => a + c.price * c.quantity + (c.price * c.quantity * c.gst / 100)-c.discount, 0);
+    const totalPrice = itemsPrice 
 
     useEffect(() => {
-        const { cartitem } = props
         setCart({ cartitem })
+        console.log(cartitem)
     }, [props]);
 
     const [page, setPage] = React.useState(0);
@@ -62,16 +60,42 @@ function CartProduct(props) {
     };
 
     const body = (
-        <div className={classes.paper1}>
-            <h2 id="simple-modal-title">Thank you for shopping with us!!</h2>
-            <p id="simple-modal-description">
-                {cart.name}
-            </p>
+        <div className={classes.paper1} >
+            <TableContainer className={classes.paper} component={Paper} >
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead >
+                        <TableRow className={classes.head}>
+                            <TableCell className={classes.headcolor}>Sr No.</TableCell>
+                            <TableCell className={classes.headcolor}>Item</TableCell>
+                            <TableCell className={classes.headcolor}>Cost per Item(₹)</TableCell>
+                            <TableCell className={classes.headcolor}>Quantity</TableCell>
+                            <TableCell className={classes.headcolor}>GST(%)</TableCell>
+                            <TableCell className={classes.headcolor}>Total</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {cartitem
+                            .map((product, index) => (
+                                <TableRow key={product.id} className={classes.root}>
+                                    <TableCell component="th" scope="row">
+                                        {index + 1}
+                                    </TableCell>
+                                    <TableCell>{product.name}</TableCell>
+                                    <TableCell>{product.price}</TableCell>
+                                    <TableCell>{product.quantity}</TableCell>
+                                    <TableCell>{product.gst}</TableCell>
+                                    <TableCell>{totalPrice.toFixed(2)}</TableCell>
+                                </TableRow>
+                            ))}
+                    </TableBody>
+                </Table>
+                <h2 id="simple-modal-title">Thank you for shopping with us!!</h2>
+            </TableContainer >
         </div>
     );
     return (
         <>
-            <div>{cartitem.length === 0 && <p>Cart is empty</p>}</div>
+            <div>{cartitem.length === 0 && <strong>Cart is empty</strong>}</div>
             <TableContainer className={classes.paper} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead >
@@ -86,7 +110,7 @@ function CartProduct(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {cartitem && cartitem
+                        {cartitem
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((product, index) => (
                                 <TableRow key={product.id} className={classes.root}>
@@ -101,7 +125,7 @@ function CartProduct(props) {
                                         <button onClick={() => addToCart(product)} className="btn fa fa-plus  mr-2" ></button>
                                         <button onClick={() => removeFromCart(product)} className="btn fa fa-minus  mr-2" > </button>
                                     </TableCell>
-                                    <TableCell>{product.price * product.quantity + (product.price * product.quantity * product.gst / 100)}</TableCell>
+                                    <TableCell>{product.price * product.quantity + (product.price * product.quantity * product.gst / 100) - product.discount}</TableCell>
                                 </TableRow>
                             ))}
                     </TableBody>
@@ -116,9 +140,10 @@ function CartProduct(props) {
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 />
             </TableContainer >
+
             {cartitem.length !== 0 && (
                 <>
-                    <hr></hr>
+                <br></br>
                     <div className="row">
                         <div className="text-right">
                             <strong>Total Price:₹{totalPrice.toFixed(2)}</strong>
@@ -126,7 +151,6 @@ function CartProduct(props) {
                     </div>
                 </>
             )}
-
 
             <button className='btn btn-primary' onClick={handleOpen}>
                 Invoice

@@ -3,6 +3,7 @@ import { Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActionA
 import { makeStyles } from '@material-ui/core/styles';
 import { getProductService } from '../../Services/ProductService';
 import CartProduct from './CartProduct';
+import ProductList from '../Products/Pages/ProductList';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -44,14 +45,15 @@ const useStyles = makeStyles((theme) => ({
 function ShowProduct() {
     const classes = useStyles();
     const [products, setProduct] = useState([]);
-
     const [cart, setCart] = useState([]);
+
     useEffect(() => {
         loadProducts();
     }, []);
 
     const loadProducts = async () => {
         const result = await getProductService()
+        console.log(result.data)
         setProduct(result.data);
     };
 
@@ -66,6 +68,12 @@ function ShowProduct() {
         } else {
             setCart([...cart, { ...Product, quantity: 1 }]);
         }
+        const newProduct = products.find((x) => x.id === Product.id);
+        setProduct(
+            products.map((x) =>
+                x.id === newProduct.id ? { ...newProduct, quantity: newProduct.quantity - 1 } : x
+            )
+        );
     };
 
     const removeFromCart = (Product) => {
