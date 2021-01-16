@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Modal, Link, Paper } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+import './ListItem.css';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -14,14 +15,15 @@ const useStyles = makeStyles((theme) => ({
     headcolor: {
         fontWeight: 600
     },
-    paper1: {
+    modalpaper: {
         position: 'absolute',
-        width: 400,
+        width: '560px',
+        marginLeft: '456px',
+        marginTop: '100px',
         backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-    },
+    }
 }))
 
 function CartProduct(props) {
@@ -30,12 +32,11 @@ function CartProduct(props) {
 
     const { cartitem, addToCart, removeFromCart } = props;
 
-    const itemsPrice = cartitem.reduce((a, c) => a + c.price * c.quantity + (c.price * c.quantity * c.gst / 100)-c.discount, 0);
-    const totalPrice = itemsPrice 
+    const itemsPrice = cartitem.reduce((a, c) => a + c.price * c.quantity + (c.price * c.quantity * c.gst / 100) - c.discount, 0);
+    const totalPrice = itemsPrice
 
     useEffect(() => {
         setCart({ cartitem })
-        console.log(cartitem)
     }, [props]);
 
     const [page, setPage] = React.useState(0);
@@ -60,38 +61,41 @@ function CartProduct(props) {
     };
 
     const body = (
-        <div className={classes.paper1} >
-            <TableContainer className={classes.paper} component={Paper} >
-                <Table className={classes.table} aria-label="simple table">
-                    <TableHead >
-                        <TableRow className={classes.head}>
-                            <TableCell className={classes.headcolor}>Sr No.</TableCell>
-                            <TableCell className={classes.headcolor}>Item</TableCell>
-                            <TableCell className={classes.headcolor}>Cost per Item(₹)</TableCell>
-                            <TableCell className={classes.headcolor}>Quantity</TableCell>
-                            <TableCell className={classes.headcolor}>GST(%)</TableCell>
-                            <TableCell className={classes.headcolor}>Total</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {cartitem
-                            .map((product, index) => (
-                                <TableRow key={product.id} className={classes.root}>
-                                    <TableCell component="th" scope="row">
-                                        {index + 1}
-                                    </TableCell>
-                                    <TableCell>{product.name}</TableCell>
-                                    <TableCell>{product.price}</TableCell>
-                                    <TableCell>{product.quantity}</TableCell>
-                                    <TableCell>{product.gst}</TableCell>
-                                    <TableCell>{totalPrice.toFixed(2)}</TableCell>
-                                </TableRow>
-                            ))}
-                    </TableBody>
-                </Table>
-                <h2 id="simple-modal-title">Thank you for shopping with us!!</h2>
-            </TableContainer >
-        </div>
+        <TableContainer className={classes.modalpaper} component={Paper} >
+            <button
+                className="btn fa fa-times modalclose"
+                onClick={handleClose}
+            >
+            </button>
+            <Table className={classes.table} aria-label="simple table">
+                <TableHead >
+                    <TableRow className={classes.head}>
+                        <TableCell className={classes.headcolor}>Sr No.</TableCell>
+                        <TableCell className={classes.headcolor}>Item</TableCell>
+                        <TableCell className={classes.headcolor}>Cost per Item(₹)</TableCell>
+                        <TableCell className={classes.headcolor}>Quantity</TableCell>
+                        <TableCell className={classes.headcolor}>GST(%)</TableCell>
+                        <TableCell className={classes.headcolor}>Total</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {cartitem
+                        .map((cart, index) => (
+                            <TableRow key={cart.id} className={classes.root}>
+                                <TableCell component="th" scope="row">
+                                    {index + 1}
+                                </TableCell>
+                                <TableCell>{cart.name}</TableCell>
+                                <TableCell>{cart.price}</TableCell>
+                                <TableCell>{cart.quantity}</TableCell>
+                                <TableCell>{cart.gst}</TableCell>
+                                <TableCell>{totalPrice.toFixed(2)}</TableCell>
+                            </TableRow>
+                        ))}
+                </TableBody>
+            </Table>
+            <h2 id="simple-modal-title">Thank you for shopping with us!!</h2>
+        </TableContainer >
     );
     return (
         <>
@@ -112,20 +116,20 @@ function CartProduct(props) {
                     <TableBody>
                         {cartitem
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((product, index) => (
-                                <TableRow key={product.id} className={classes.root}>
+                            .map((cart, index) => (
+                                <TableRow key={cart.id} className={classes.root}>
                                     <TableCell component="th" scope="row">
                                         {index + 1}
                                     </TableCell>
-                                    <TableCell>{product.name}</TableCell>
-                                    <TableCell>{product.price}</TableCell>
-                                    <TableCell>{product.quantity}</TableCell>
-                                    <TableCell>{product.gst}</TableCell>
+                                    <TableCell>{cart.name}</TableCell>
+                                    <TableCell>{cart.price}</TableCell>
+                                    <TableCell>{cart.quantity}</TableCell>
+                                    <TableCell>{cart.gst}</TableCell>
                                     <TableCell>
-                                        <button onClick={() => addToCart(product)} className="btn fa fa-plus  mr-2" ></button>
-                                        <button onClick={() => removeFromCart(product)} className="btn fa fa-minus  mr-2" > </button>
+                                        <button disabled={cart.quantity === 3} onClick={() => addToCart(cart)} className="btn fa fa-plus  mr-2" ></button>
+                                        <button onClick={() => removeFromCart(cart)} className="btn fa fa-minus  mr-2" > </button>
                                     </TableCell>
-                                    <TableCell>{product.price * product.quantity + (product.price * product.quantity * product.gst / 100) - product.discount}</TableCell>
+                                    <TableCell>{cart.price * cart.quantity + (cart.price * cart.quantity * cart.gst / 100) - cart.discount}</TableCell>
                                 </TableRow>
                             ))}
                     </TableBody>
@@ -143,7 +147,7 @@ function CartProduct(props) {
 
             {cartitem.length !== 0 && (
                 <>
-                <br></br>
+                    <br></br>
                     <div className="row">
                         <div className="text-right">
                             <strong>Total Price:₹{totalPrice.toFixed(2)}</strong>

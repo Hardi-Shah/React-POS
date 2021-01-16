@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea, Link, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { getProductService } from '../../Services/ProductService';
+import { getCategoryService } from '../../Services/CategoryService';
 import CartProduct from './CartProduct';
-import ProductList from '../Products/Pages/ProductList';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     gridContainer: {
         paddingLeft: "30px",
         paddingRight: "30px",
-        marginTop: 30
+        marginTop: 75
     },
     cost: {
         float: "left",
@@ -45,16 +45,22 @@ const useStyles = makeStyles((theme) => ({
 function ShowProduct() {
     const classes = useStyles();
     const [products, setProduct] = useState([]);
+    const [categories, setCategory] = useState([]);
+
     const [cart, setCart] = useState([]);
 
     useEffect(() => {
         loadProducts();
+        loadCategories();
     }, []);
 
     const loadProducts = async () => {
         const result = await getProductService()
-        console.log(result.data)
         setProduct(result.data);
+    };
+    const loadCategories = async () => {
+        const result = await getCategoryService()
+        setCategory(result.data.reverse());
     };
 
     const addToCart = (Product) => {
@@ -65,15 +71,18 @@ function ShowProduct() {
                     x.id === Product.id ? { ...exist, quantity: exist.quantity + 1 } : x
                 )
             );
-        } else {
+        }
+        else {
             setCart([...cart, { ...Product, quantity: 1 }]);
         }
         const newProduct = products.find((x) => x.id === Product.id);
-        setProduct(
-            products.map((x) =>
-                x.id === newProduct.id ? { ...newProduct, quantity: newProduct.quantity - 1 } : x
-            )
-        );
+        if (newProduct) {
+            setProduct(
+                products.map((x) =>
+                    x.id === newProduct.id ? { ...newProduct, quantity: newProduct.quantity - 1 } : x
+                )
+            );
+        }
     };
 
     const removeFromCart = (Product) => {
@@ -89,6 +98,12 @@ function ShowProduct() {
                 )
             );
         }
+        const newProduct = products.find((x) => x.id === Product.id);
+        setProduct(
+            products.map((x) =>
+                x.id === newProduct.id ? { ...newProduct, quantity: newProduct.quantity + 1 } : x
+            )
+        );
     };
 
     return (
@@ -99,7 +114,7 @@ function ShowProduct() {
             justify="center"
         >
             <Grid item xs={12} sm={6} md={6}>
-                <CartProduct cartitem={cart} addToCart={addToCart} removeFromCart={removeFromCart} />
+                <CartProduct  cartitem={cart} addToCart={addToCart} removeFromCart={removeFromCart} />
             </Grid>
             <Grid item xs={12} sm={6} md={6} className={classes.grid}>
                 <Grid container
@@ -108,7 +123,7 @@ function ShowProduct() {
                         return (
                             <Grid item xs={4} key={Product.id}  >
                                 <Card className={classes.card}  >
-                                    <CardActionArea onClick={() => addToCart(Product)}>
+                                    <CardActionArea disabled={Product.quantity === 0} onClick={() => addToCart(Product)}>
                                         <CardHeader
                                             title={Product.name}
                                         />

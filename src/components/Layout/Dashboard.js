@@ -18,7 +18,6 @@ import AddProduct from '../Products/ProductList/AddProduct';
 import EditProduct from '../Products/ProductList/EditProduct';
 import Product from '../Products/ProductList/Product';
 import ShowProduct from './ShowProduct';
-import CartProduct from './CartProduct';
 
 const drawerWidth = 240;
 

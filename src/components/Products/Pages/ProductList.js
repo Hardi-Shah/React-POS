@@ -133,7 +133,7 @@ export default function ProductList() {
                 <DialogTitle id="alert-dialog-title">{"Delete Product"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                       Are You Sure to Delete???
+                       Are You Sure to Delete?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
