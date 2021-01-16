@@ -156,7 +156,7 @@ function CartProduct(props) {
                 </>
             )}
 
-            <button className='btn btn-primary' onClick={handleOpen}>
+            <button className='btn btn-primary invoice' onClick={handleOpen}>
                 Invoice
          </button>
             <Modal

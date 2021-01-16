@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea, Link, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { getProductService } from '../../Services/ProductService';
-import { getCategoryService } from '../../Services/CategoryService';
 import CartProduct from './CartProduct';
+import './ListItem.css'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     gridContainer: {
         paddingLeft: "30px",
         paddingRight: "30px",
-        marginTop: 75
+        marginTop: 50
     },
     cost: {
         float: "left",
@@ -45,22 +45,20 @@ const useStyles = makeStyles((theme) => ({
 function ShowProduct() {
     const classes = useStyles();
     const [products, setProduct] = useState([]);
-    const [categories, setCategory] = useState([]);
+    const [search, setSearch] = useState('');
 
     const [cart, setCart] = useState([]);
 
     useEffect(() => {
         loadProducts();
-        loadCategories();
     }, []);
 
     const loadProducts = async () => {
         const result = await getProductService()
         setProduct(result.data);
     };
-    const loadCategories = async () => {
-        const result = await getCategoryService()
-        setCategory(result.data.reverse());
+    const filteredProducts = e => {
+        setSearch(e.target.value);
     };
 
     const addToCart = (Product) => {
@@ -114,12 +112,23 @@ function ShowProduct() {
             justify="center"
         >
             <Grid item xs={12} sm={6} md={6}>
-                <CartProduct  cartitem={cart} addToCart={addToCart} removeFromCart={removeFromCart} />
+                <CartProduct cartitem={cart} addToCart={addToCart} removeFromCart={removeFromCart} />
             </Grid>
             <Grid item xs={12} sm={6} md={6} className={classes.grid}>
                 <Grid container
                     justify="center">
-                    {products.map(Product => {
+                    <div>
+                        <label>Search</label>
+                        <input type='text' placeholder='Search...' onChange={filteredProducts} />
+                    </div>
+                    {products.filter((val) => {
+                        if (search == '') {
+                            return val;
+                        } else if (val.name.toLowerCase().includes(search.toLowerCase())) {
+                            return val;
+                        }
+                    }
+                    ).map(Product => {
                         return (
                             <Grid item xs={4} key={Product.id}  >
                                 <Card className={classes.card}  >
