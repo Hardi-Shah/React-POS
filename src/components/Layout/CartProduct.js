@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Modal, Link, Paper } from "@material-ui/core";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Modal, Paper } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import './ListItem.css';
 
@@ -126,7 +126,7 @@ function CartProduct(props) {
                                     <TableCell>{cart.quantity}</TableCell>
                                     <TableCell>{cart.gst}</TableCell>
                                     <TableCell>
-                                        <button disabled={cart.quantity === 3} onClick={() => addToCart(cart)} className="btn fa fa-plus  mr-2" ></button>
+                                        <button  onClick={() => addToCart(cart)} className="btn fa fa-plus  mr-2" ></button>
                                         <button onClick={() => removeFromCart(cart)} className="btn fa fa-minus  mr-2" > </button>
                                     </TableCell>
                                     <TableCell>{cart.price * cart.quantity + (cart.price * cart.quantity * cart.gst / 100) - cart.discount}</TableCell>

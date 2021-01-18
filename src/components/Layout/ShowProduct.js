@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea, Link, Paper } from '@material-ui/core';
+import { Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { toast } from 'react-toastify';
 import { getProductService } from '../../Services/ProductService';
 import CartProduct from './CartProduct';
-import './ListItem.css'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -63,6 +63,12 @@ function ShowProduct() {
 
     const addToCart = (Product) => {
         const exist = cart.find((x) => x.id === Product.id);
+        const newProduct = products.find((x) => x.id === Product.id);
+        if(newProduct && newProduct.quantity == 0)
+        {
+            toast.warn('Product is out of stock!');
+            return;
+        }
         if (exist) {
             setCart(
                 cart.map((x) =>
@@ -73,7 +79,6 @@ function ShowProduct() {
         else {
             setCart([...cart, { ...Product, quantity: 1 }]);
         }
-        const newProduct = products.find((x) => x.id === Product.id);
         if (newProduct) {
             setProduct(
                 products.map((x) =>
@@ -105,6 +110,7 @@ function ShowProduct() {
     };
 
     return (
+        <>
         <Grid
             container
             spacing={3}
@@ -118,8 +124,8 @@ function ShowProduct() {
                 <Grid container
                     justify="center">
                     <div>
-                        <label>Search</label>
-                        <input type='text' placeholder='Search...' onChange={filteredProducts} />
+                        <label style={{marginTop:'-56px',marginRight:'-50px'}}>Search</label>
+                        <input type='text' style={{width:400 ,marginTop:'-34px'}}  placeholder='Search...' onChange={filteredProducts} />
                     </div>
                     {products.filter((val) => {
                         if (search == '') {
@@ -157,7 +163,7 @@ function ShowProduct() {
                 </Grid>
             </Grid>
         </Grid>
-
+     </>
     )
 }
 export default ShowProduct
