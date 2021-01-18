@@ -138,7 +138,7 @@ function ShowProduct() {
                         return (
                             <Grid item xs={4} key={Product.id}  >
                                 <Card className={classes.card}  >
-                                    <CardActionArea disabled={Product.quantity === 0} onClick={() => addToCart(Product)}>
+                                    <CardActionArea onClick={() => addToCart(Product)}>
                                         <CardHeader
                                             title={Product.name}
                                         />
