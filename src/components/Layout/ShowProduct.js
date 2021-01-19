@@ -64,7 +64,7 @@ function ShowProduct() {
     const addToCart = (Product) => {
         const exist = cart.find((x) => x.id === Product.id);
         const newProduct = products.find((x) => x.id === Product.id);
-        if(newProduct && newProduct.quantity == 0)
+        if(newProduct && newProduct.quantity === 0)
         {
             toast.warn('Product is out of stock!');
             return;
@@ -128,7 +128,7 @@ function ShowProduct() {
                         <input type='text' style={{width:400 ,marginTop:'-34px'}}  placeholder='Search...' onChange={filteredProducts} />
                     </div>
                     {products.filter((val) => {
-                        if (search == '') {
+                        if (search === '') {
                             return val;
                         } else if (val.name.toLowerCase().includes(search.toLowerCase())) {
                             return val;
