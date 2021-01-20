@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea} from '@material-ui/core';
+import { Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
 import { getProductService } from '../../Services/ProductService';
@@ -64,8 +64,7 @@ function ShowProduct() {
     const addToCart = (Product) => {
         const exist = cart.find((x) => x.id === Product.id);
         const newProduct = products.find((x) => x.id === Product.id);
-        if(newProduct && newProduct.quantity === 0)
-        {
+        if (newProduct && newProduct.quantity === 0) {
             toast.warn('Product is out of stock!');
             return;
         }
@@ -111,59 +110,59 @@ function ShowProduct() {
 
     return (
         <>
-        <Grid
-            container
-            spacing={3}
-            className={classes.gridContainer}
-            justify="center"
-        >
-            <Grid item xs={12} sm={6} md={6}>
-                <CartProduct cartitem={cart} addToCart={addToCart} removeFromCart={removeFromCart} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6} className={classes.grid}>
-                <Grid container
-                    justify="center">
-                    <div>
-                        <label style={{marginTop:'-56px',marginRight:'-50px'}}>Search</label>
-                        <input type='text' style={{width:400 ,marginTop:'-34px'}}  placeholder='Search...' onChange={filteredProducts} />
-                    </div>
-                    {products.filter((val) => {
-                        if (search === '') {
-                            return val;
-                        } else if (val.name.toLowerCase().includes(search.toLowerCase())) {
-                            return val;
+            <Grid
+                container
+                spacing={3}
+                className={classes.gridContainer}
+                justify="center"
+            >
+                <Grid item xs={12} sm={6} md={6}>
+                    <CartProduct cartitem={cart} addToCart={addToCart} removeFromCart={removeFromCart} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={6} className={classes.grid}>
+                    <Grid container
+                        justify="center">
+                        <div>
+                            <label style={{ marginTop: '-56px', marginRight: '-50px' }}>Search</label>
+                            <input type='text' style={{ width: 400, marginTop: '-34px' }} placeholder='Search...' onChange={filteredProducts} />
+                        </div>
+                        {products.filter((val) => {
+                            if (search === '') {
+                                return val;
+                            } else if (val.name.toLowerCase().includes(search.toLowerCase())) {
+                                return val;
+                            }
                         }
-                    }
-                    ).map(Product => {
-                        return (
-                            <Grid item xs={4} key={Product.id}  >
-                                <Card className={classes.card}  >
-                                    <CardActionArea onClick={() => addToCart(Product)}>
-                                        <CardHeader
-                                            title={Product.name}
-                                        />
-                                        <CardMedia
-                                            className={classes.media}
-                                            image={Product.image}
-                                            title={Product.name}
-                                        />
-                                        <CardContent>
-                                            <Typography variant="body2" className={classes.cost} component="p">
-                                                Cost(₹):{Product.price}
-                                            </Typography>
-                                            <Typography variant="body2" className={classes.quantity} component="p" >
-                                                Quantity:{Product.quantity}
-                                            </Typography>
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
-                            </Grid>
-                        )
-                    })}
+                        ).map(Product => {
+                            return (
+                                <Grid item xs={4} key={Product.id}  >
+                                    <Card className={classes.card}  >
+                                        <CardActionArea onClick={() => addToCart(Product)}>
+                                            <CardHeader
+                                                title={Product.name}
+                                            />
+                                            <CardMedia
+                                                className={classes.media}
+                                                image={Product.image}
+                                                title={Product.name}
+                                            />
+                                            <CardContent>
+                                                <Typography variant="body2" className={classes.cost} component="p">
+                                                    Cost(₹):{Product.price}
+                                                </Typography>
+                                                <Typography variant="body2" className={classes.quantity} component="p" >
+                                                    Quantity:{Product.quantity}
+                                                </Typography>
+                                            </CardContent>
+                                        </CardActionArea>
+                                    </Card>
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
-     </>
+        </>
     )
 }
 export default ShowProduct
