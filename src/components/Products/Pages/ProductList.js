@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: 44,
         width: '80%',
-        margin: 'auto'
+        margin: 'auto',
+        boxShadow: theme.shadows[5],
     },
     head: {
         backgroundColor: 'darkblue'

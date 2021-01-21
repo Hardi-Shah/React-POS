@@ -10,7 +10,8 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         margin: 'auto',
         width: '540px',
-        marginLeft: '-25px'
+        marginLeft: '-25px',
+        boxShadow: theme.shadows[5],
     },
     headcolor: {
         fontWeight: 600

@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: 102,
         width: '80%',
-        margin: 'auto'
+        margin: 'auto',
+        boxShadow: theme.shadows[5],
     },
     root: {
         '&:nth-of-type(odd)': {
