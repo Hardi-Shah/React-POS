@@ -124,11 +124,6 @@ const EditProduct = () => {
                                     <Field name="discount" value={discount} onChange={handleChange} type="text" placeholder=' Discount' />
                                     <ErrorMessage name="discount" component={TextError} />
                                 </div>
-                                {/* <div >
-                                    <label>Image</label>
-                                    <Field name="image" value={image} onChange={handleChange} type="file" placeholder='image' />
-                                    <ErrorMessage name="image" component={TextError} />
-                                </div> */}
                                 <button type='submit' disabled={!formik.isValid} className="btn btn-warning btn-block ">Edit Product</button>
                             </Form>
                         )

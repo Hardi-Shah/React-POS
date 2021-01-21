@@ -21,6 +21,7 @@
     {
       "id": 2,
       "name": "Nescafe",
+      "catName": "Beverages",
       "price": "100",
       "quantity": "3",
       "gst": "3",
@@ -32,6 +33,7 @@
       "name": "Red Label",
       "id": 3,
       "price": "170",
+      "catName": "Beverages",
       "quantity": "1",
       "gst": "3",
       "discount": "10",
@@ -40,6 +42,7 @@
     },
     {
       "name": " T-shirts",
+      "catName": "Clothing",
       "price": "600",
       "quantity": "1",
       "selectOption": "4",
@@ -50,6 +53,7 @@
     },
     {
       "name": "Maggi",
+      "catName": "Beverages",
       "price": "12",
       "quantity": "2",
       "selectOption": "3",
@@ -60,6 +64,7 @@
     },
     {
       "name": "Balaji",
+      "catName": "Beverages",
       "price": "10",
       "quantity": "3",
       "selectOption": "3",
@@ -70,6 +75,7 @@
     },
     {
       "name": "Lays",
+      "catName": "Beverages",
       "price": "10",
       "quantity": "2",
       "selectOption": "3",

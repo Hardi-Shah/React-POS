@@ -3,6 +3,7 @@ import { Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActionA
 import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
 import { getProductService } from '../../Services/ProductService';
+import { getCategoryService } from "../../Services/CategoryService";
 import CartProduct from './CartProduct';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,18 +46,25 @@ const useStyles = makeStyles((theme) => ({
 function ShowProduct() {
     const classes = useStyles();
     const [products, setProduct] = useState([]);
+    const [categories, setCategory] = useState([]);
     const [search, setSearch] = useState('');
 
     const [cart, setCart] = useState([]);
 
     useEffect(() => {
         loadProducts();
+        loadCategories();
     }, []);
 
     const loadProducts = async () => {
         const result = await getProductService()
         setProduct(result.data);
     };
+    const loadCategories = async () => {
+        const result = await getCategoryService()
+        setCategory(result.data.reverse());
+    };
+
     const filteredProducts = e => {
         setSearch(e.target.value);
     };
@@ -123,13 +131,22 @@ function ShowProduct() {
                     <Grid container
                         justify="center">
                         <div>
-                            <label style={{ marginTop: '-56px', marginRight: '-50px' }}>Search</label>
-                            <input type='text' style={{ width: 400, marginTop: '-34px' }} placeholder='Search...' onChange={filteredProducts} />
+                            <label style={{ marginTop: '-60px', marginRight: '-50px' }}>Search by Category:</label>
+                            <select name='selectTitle' style={{ width: 400, marginTop: '-42px' }} className={classes.titledropdown} onChange={filteredProducts}>
+                                <option value=''>Select Category</option>
+                                {categories.map(option => {
+                                    return (
+                                        <option key={option.name} value={option.name}>
+                                            {option.name}
+                                        </option>
+                                    )
+                                })}
+                            </select>
                         </div>
                         {products.filter((val) => {
                             if (search === '') {
                                 return val;
-                            } else if (val.name.toLowerCase().includes(search.toLowerCase())) {
+                            } else if (val.catName?.toLowerCase().includes(search.toLowerCase())) {
                                 return val;
                             }
                         }
