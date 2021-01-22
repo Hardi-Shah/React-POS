@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiurl='http://localhost:3002/products';
+export const apiurl='http://localhost:3002/products';
 
 export function getProductService(){
     return axios.get(`${apiurl}`)

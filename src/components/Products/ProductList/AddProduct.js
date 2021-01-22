@@ -14,6 +14,7 @@ const AddProduct = () => {
         price: "",
         quantity: "",
         selectOption: '',
+        catId:'',
         gst: "",
         discount: "",
         image:""
@@ -27,7 +28,7 @@ const AddProduct = () => {
         quantity: Yup.number().typeError("That doesn't look like a  number")
             .positive("A price  can't start with a minus")
             .integer("A price  can't include a decimal point").required('Quantity is Reuired'),
-        selectOption: Yup.string().required('Select Category is Reuired'),
+        catId: Yup.string().required('Select Category is Reuired'),
         gst: Yup.number().typeError("That doesn't look like a  number")
             .positive("A GST number can't start with a minus")
             .integer("A GST number can't include a decimal point").required('GST is Reuired'),
@@ -76,7 +77,7 @@ const AddProduct = () => {
                                 </div>
                                 <div >
                                     <label>Category Name</label>
-                                    <Field as='select' name='selectOption'>
+                                    <Field as='select' name='catId'>
                                         <option value=''>Select Category</option>
                                         {categories.map(Category => {
                                             return (

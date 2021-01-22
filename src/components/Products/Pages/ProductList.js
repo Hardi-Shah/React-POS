@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getProductService, deleteProductServiceById } from "../../../Services/ProductService";
+import { getCategoryService } from "../../../Services/CategoryService";
 import { makeStyles } from "@material-ui/core/styles";
-import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow,TablePagination} from "@material-ui/core";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import '../../Products/ProductList/Product.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {Dialog,Button,DialogActions,DialogContent,DialogContentText,DialogTitle,Paper} from '@material-ui/core';
+import { Dialog, Button, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper } from '@material-ui/core';
 
 toast.configure()
 
@@ -40,8 +41,14 @@ export default function ProductList() {
     let history = useHistory();
     const classes = useStyles();
     const [products, setProducts] = useState([]);
-    const [id,setId]=useState();
+    //const [categories, setcats] = useState([]);
+    const [id, setId] = useState();
     const [open, setOpen] = React.useState(false);
+
+    // const getcatname = (id) => {
+    //     const ctname = categories.map(item => item.id == id);
+    //     return ctname[1].name;
+    // }
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -52,13 +59,17 @@ export default function ProductList() {
     };
     useEffect(() => {
         loadProducts();
+        //loadcats();
     }, []);
 
     const loadProducts = async () => {
         const result = await getProductService()
         setProducts(result.data.reverse());
-
     };
+    // const loadcats = async () => {
+    //     const result = await getCategoryService()
+    //     setcats(result.data);
+    // };
     const deleteProduct = async id => {
         await deleteProductServiceById(id)
         setOpen(false)
@@ -90,6 +101,7 @@ export default function ProductList() {
                             <TableCell className={classes.headcolor}>Quantity</TableCell>
                             <TableCell className={classes.headcolor}>GST(%)</TableCell>
                             <TableCell className={classes.headcolor}>Discount</TableCell>
+                            {/* <TableCell className={classes.headcolor}>catname</TableCell> */}
                             <TableCell className={classes.headcolor}>Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -106,10 +118,11 @@ export default function ProductList() {
                                     <TableCell>{product.quantity}</TableCell>
                                     <TableCell>{product.gst}</TableCell>
                                     <TableCell>{product.discount}</TableCell>
+                                    {/* <TableCell>{getcatname(product.catId)}</TableCell> */}
                                     <TableCell>
                                         <Link className="btn fa fa-eye btn-primary mr-2" to={`/products/${product.id}`}>View</Link>
                                         <Link className="btn fa fa-edit btn-outline-primary mr-2" to={`/products/edit/${product.id}`}> Edit</Link>
-                                        <button className="btn fa fa-trash btn-danger mr-2" to="/Product" onClick={()=>{setId(product.id);handleClickOpen()}}> Delete</button>
+                                        <button className="btn fa fa-trash btn-danger mr-2" to="/Product" onClick={() => { setId(product.id); handleClickOpen() }}> Delete</button>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -134,7 +147,7 @@ export default function ProductList() {
                 <DialogTitle id="alert-dialog-title">{"Delete Product"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                       Are You Sure to Delete?
+                        Are You Sure to Delete?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -142,7 +155,7 @@ export default function ProductList() {
                         Cancel
                      </Button>
                     <Button onClick={() => deleteProduct(id)} color="primary" autoFocus>
-                      Ok
+                        Ok
                      </Button>
                 </DialogActions>
             </Dialog>

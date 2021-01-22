@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { apiurl } from "../../../Services/ProductService";
 import { getCategoryService, deleteCategoryServiceById } from "../../../Services/CategoryService";
 import { makeStyles } from "@material-ui/core/styles";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from "@material-ui/core";
@@ -8,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Dialog, Button, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper } from '@material-ui/core';
+import axios from "axios";
 
 toast.configure()
 
@@ -61,6 +63,12 @@ export default function CategoryList() {
 
     };
     const deleteCategory = async id => {
+        axios.get(`${apiurl}?catId=${id}`)
+        .then(result=>{
+            result.data.map((res)=>{
+                axios.delete(`${apiurl}/${res.id}`)
+            }
+        )})
         await deleteCategoryServiceById(id)
         setOpen(false)
         toast.success('Deleted successfully!')
