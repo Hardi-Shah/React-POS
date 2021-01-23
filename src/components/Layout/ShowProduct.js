@@ -132,8 +132,11 @@ function ShowProduct() {
                     <Grid container
                         justify="center">
                         <div>
-                            <label style={{ marginTop: '-60px', marginRight: '-50px' }}>Search by Category:</label>
-                            <select name='selectTitle' style={{ width: 400, marginTop: '-42px' }} className={classes.titledropdown} onChange={filteredProducts}>
+                            <label style={{ marginTop: '-60px', marginRight: '-50px' }} className={classes.labelsearch}>Search:</label>
+                            <input type='text' style={{ width: 230, marginTop: '-42px' }} className={classes.search} placeholder='Search...' onChange={filteredProducts} />
+
+                            <label style={{ marginTop: '-77px', marginLeft: '252px' }}>Search by Category:</label>
+                            <select name='selectTitle' style={{ width: 230, marginTop: '-54px',marginLeft:'252px'}} className={classes.titledropdown} onChange={filteredProducts}>
                                 <option value=''>Select Category</option>
                                 {categories.map(option => {
                                     return (
@@ -149,6 +152,12 @@ function ShowProduct() {
                                 return val;
                             } else if (val.catName?.toLowerCase().includes(search.toLowerCase())) {
                                 return val;
+                            }
+                            else if (val.name?.toLowerCase().includes(search.toLowerCase())) {
+                                return val;
+                            }
+                            else {
+                                return false;
                             }
                         }
                         ).map(Product => {

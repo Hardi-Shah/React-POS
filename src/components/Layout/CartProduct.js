@@ -61,7 +61,7 @@ function CartProduct(props) {
         setOpen(false);
     };
 
-    const body = (
+    const ModalPopUp = (
         <TableContainer className={classes.modalpaper} component={Paper} >
             <button
                 className="btn fa fa-times modalclose"
@@ -166,7 +166,7 @@ function CartProduct(props) {
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
             >
-                {body}
+                {ModalPopUp}
             </Modal>
         </>
     )
