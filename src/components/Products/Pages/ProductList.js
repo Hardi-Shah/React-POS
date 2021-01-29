@@ -8,6 +8,9 @@ import '../../Products/ProductList/Product.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Dialog, Button, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper } from '@material-ui/core';
+import { connect } from 'react-redux'
+import { fetchProducts } from "../../../Redux/Product/ProductAction";
+
 
 toast.configure()
 
@@ -36,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function ProductList() {
+function ProductList({productData, fetchProducts}) {
     let history = useHistory();
     const classes = useStyles();
     const [products, setProducts] = useState([]);
@@ -51,20 +54,21 @@ export default function ProductList() {
         setOpen(false);
     };
     useEffect(() => {
-        loadProducts();
+        //loadProducts();
+        fetchProducts();
     }, []);
 
-    const loadProducts = async () => {
-        const result = await getProductService();
-        setProducts(result.data.reverse());
-    };
+    // const loadProducts = async () => {
+    //     const result = await getProductService();
+    //     setProducts(result.data.reverse());
+    // };
 
     const deleteProduct = async id => {
         await deleteProductServiceById(id)
         setOpen(false)
         toast.success('Deleted successfully!')
         history.push("/Product");
-        loadProducts();
+        //loadProducts();
     }
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -94,7 +98,7 @@ export default function ProductList() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {products
+                        {productData && productData.products && productData.products
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((product, index) => (
                                 <TableRow key={product.id} className={classes.root}>
@@ -149,3 +153,14 @@ export default function ProductList() {
         </div>
     );
 }
+const mapStateToProps = state => {
+    return {
+        productData: state.product
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchProducts: () => dispatch(fetchProducts())
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(ProductList)

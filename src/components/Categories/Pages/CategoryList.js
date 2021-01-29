@@ -10,6 +10,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Dialog, Button, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper } from '@material-ui/core';
 import axios from "axios";
+import { connect } from 'react-redux'
+import { fetchCategories } from "../../../Redux/Category/categoryAction";
 
 toast.configure()
 
@@ -38,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function CategoryList() {
+function CategoryList({ categoryData, fetchCategories }) {
     let history = useHistory();
     const classes = useStyles();
     const [categories, setCategories] = useState([]);
@@ -54,26 +56,28 @@ export default function CategoryList() {
     };
 
     useEffect(() => {
-        loadCategories();
+        // loadCategories();
+        fetchCategories();
     }, []);
 
-    const loadCategories = async () => {
-        const result = await getCategoryService()
-        setCategories(result.data.reverse());
+    // const loadCategories = async () => {
+    //     const result = await getCategoryService()
+    //     setCategories(result.data.reverse());
 
-    };
+    // };
     const deleteCategory = async id => {
         axios.get(`${apiurl}?catId=${id}`)
-        .then(result=>{
-            result.data.map((res)=>{
-                axios.delete(`${apiurl}/${res.id}`)
-            }
-        )})
+            .then(result => {
+                result.data.map((res) => {
+                    axios.delete(`${apiurl}/${res.id}`)
+                }
+                )
+            })
         await deleteCategoryServiceById(id)
         setOpen(false)
         toast.success('Deleted successfully!')
         history.push("/Category");
-        loadCategories();
+        //loadCategories();
     }
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -99,7 +103,7 @@ export default function CategoryList() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {categories
+                        { categoryData && categoryData.categories && categoryData.categories
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((category, index) => (
                                 <TableRow key={category.id} className={classes.root}>
@@ -110,7 +114,7 @@ export default function CategoryList() {
                                     <TableCell>
                                         <Link className="btn fa fa-eye btn-primary mr-3" to={`/categories/${category.id}`}>View</Link>
                                         <Link className="btn fa fa-edit btn-outline-primary mr-3" to={`/categories/edit/${category.id}`}> Edit</Link>
-                                        <button className="btn fa fa-trash btn-danger mr-2" to="/Category" onClick={()=>{setId(category.id);handleClickOpen()}}> Delete</button>
+                                        <button className="btn fa fa-trash btn-danger mr-2" to="/Category" onClick={() => { setId(category.id); handleClickOpen() }}> Delete</button>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -135,7 +139,7 @@ export default function CategoryList() {
                 <DialogTitle id="alert-dialog-title">{"Delete Product"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                       Are You Sure to Delete???
+                        Are You Sure to Delete???
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -143,10 +147,21 @@ export default function CategoryList() {
                         Cancel
                      </Button>
                     <Button onClick={() => deleteCategory(id)} color="primary" autoFocus>
-                      Ok
+                        Ok
                      </Button>
                 </DialogActions>
             </Dialog>
         </div>
     );
 }
+const mapStateToProps = state => {
+    return {
+        categoryData: state.category
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchCategories: () => dispatch(fetchCategories())
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryList)
