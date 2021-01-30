@@ -1,5 +1,22 @@
 {
-  "categories": [],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Food"
+    },
+    {
+      "id": 2,
+      "name": "Clothing"
+    },
+    {
+      "id": 3,
+      "name": "Beverages"
+    },
+    {
+      "id": 4,
+      "name": "Electronics"
+    }
+  ],
   "products": [
     {
       "id": 2,
@@ -66,8 +83,8 @@
       "catName": "Clothing",
       "price": "600",
       "quantity": "2",
-      "selectOption": "",
-      "catId": "6",
+      "selectOption": "2",
+      "catId": "2",
       "gst": "2",
       "discount": "20",
       "image": "tshirtwomen.jpg",

@@ -1,4 +1,4 @@
-import { FETCH_CATEGORIES, DELETE_CATEGORIES } from "./categoryType"
+import { FETCH_CATEGORIES} from "./categoryType"
 import axios from 'axios'
 import { apiurl } from "../../Services/CategoryService";
 
