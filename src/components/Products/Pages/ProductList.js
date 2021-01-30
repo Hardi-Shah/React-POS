@@ -122,7 +122,7 @@ function ProductList({productData, fetchProducts}) {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={products.length}
+                    count={productData.products.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}
