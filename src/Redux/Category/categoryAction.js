@@ -1,5 +1,6 @@
-import {FETCH_CATEGORIES} from "./categoryType"
+import { FETCH_CATEGORIES, DELETE_CATEGORIES } from "./categoryType"
 import axios from 'axios'
+import { apiurl } from "../../Services/CategoryService";
 
 export const fetchCategorySuccess = (categories) => {
     return {
@@ -8,11 +9,11 @@ export const fetchCategorySuccess = (categories) => {
     }
 }
 
-export const fetchCategories = () =>  {
-     return function (dispatch) {
-       axios.get('http://localhost:3002/categories')
+export const fetchCategories = () => {
+    return function (dispatch) {
+        axios.get(`${apiurl}`)
             .then(response => {
-                const cats=response.data
+                const cats = response.data
                 dispatch(fetchCategorySuccess(cats))
             })
     }

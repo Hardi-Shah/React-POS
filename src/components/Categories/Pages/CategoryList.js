@@ -146,7 +146,7 @@ function CategoryList({ categoryData, fetchCategories }) {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                      </Button>
-                    <Button onClick={() => deleteCategory(id)} color="primary" autoFocus>
+                    <Button onClick={() => deleteCategory()} color="primary" autoFocus>
                         Ok
                      </Button>
                 </DialogActions>

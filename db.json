@@ -1,22 +1,5 @@
 {
-  "categories": [
-    {
-      "id": 2,
-      "name": "Electronics"
-    },
-    {
-      "name": "Beverages",
-      "id": 3
-    },
-    {
-      "name": "Food",
-      "id": 5
-    },
-    {
-      "name": "Clothing",
-      "id": 6
-    }
-  ],
+  "categories": [],
   "products": [
     {
       "id": 2,
