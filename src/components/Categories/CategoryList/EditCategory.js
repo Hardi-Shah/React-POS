@@ -5,8 +5,10 @@ import * as Yup from 'yup';
 import './Category.css';
 import { editCategoryService, getCategoryServiceById } from "../../../Services/CategoryService";
 import TextError from "./TextError";
+import {connect} from 'react-redux'
+import { editCategories } from "../../../Redux/Category/categoryAction";
 
-const EditCategory = () => {
+const EditCategory = ({editCategories}) => {
     let history = useHistory();
     const { id } = useParams();
     const [category, setCategory] = useState({
@@ -21,8 +23,9 @@ const EditCategory = () => {
     const validationSchema = Yup.object({
         name: Yup.string().required('CategoryName is Reuired')
     })
-    const onSubmit = async values => {
-        await editCategoryService(id, values)
+    const onSubmit =  (values) => {
+        // await editCategoryService(id, values)
+        editCategories(id,values);
         history.push("/Category");
     }
 
@@ -63,5 +66,14 @@ const EditCategory = () => {
         </div>
     )
 }
-
-export default EditCategory
+const mapStateToProps = state => {
+    return {
+        categoryData: state.category
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        editCategories: (id,values) => dispatch(editCategories(id,values))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(EditCategory)

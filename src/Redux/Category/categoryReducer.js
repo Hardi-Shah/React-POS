@@ -15,7 +15,7 @@ const categoryReducer = (state = intialState, action) => {
         }
         case EDIT_CATEGORIES: return {
             ...state,
-            editcat:state.categories.map((cat)=>cat.id === action.payload.id ?{...cat,name:action.payload.name}:cat)
+            editcat:state.categories.map((cat)=>cat.id === action.payload.id ? {...cat,name:action.payload.name}:cat)
         }
         case DELETE_CATEGORIES: return {
             ...state,

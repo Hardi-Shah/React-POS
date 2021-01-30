@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Dialog, Button, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper } from '@material-ui/core';
 import axios from "axios";
 import { connect } from 'react-redux'
-import { fetchCategories } from "../../../Redux/Category/categoryAction";
+import { fetchCategories, deleteCategories } from "../../../Redux/Category/categoryAction";
 
 toast.configure()
 
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function CategoryList({ categoryData, fetchCategories }) {
+function CategoryList({ categoryData, fetchCategories,deleteCategories }) {
     let history = useHistory();
     const classes = useStyles();
     const [categories, setCategories] = useState([]);
@@ -65,19 +65,19 @@ function CategoryList({ categoryData, fetchCategories }) {
     //     setCategories(result.data.reverse());
 
     // };
-    const deleteCategory = async (id) => {
-        axios.get(`${apiurl}?catId=${id}`)
-            .then(result => {
-                result.data.map((res) => {
-                    axios.delete(`${apiurl}/${res.id}`)
-                }
-                )
-            })
-        await deleteCategoryServiceById(id)
+    const deleteCategory = async () => {
+        // axios.get(`${apiurl}?catId=${id}`)
+        //     .then(result => {
+        //         result.data.map((res) => {
+        //             axios.delete(`${apiurl}/${res.id}`)
+        //         }
+        //         )
+        //     })
+          deleteCategories(id)  
+        //await deleteCategoryServiceById(id)
         setOpen(false)
         toast.success('Deleted successfully!')
         history.push("/Category");
-        fetchCategories();
         //loadCategories();
     }
     const [page, setPage] = React.useState(0);
@@ -147,7 +147,7 @@ function CategoryList({ categoryData, fetchCategories }) {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                      </Button>
-                    <Button onClick={() => deleteCategory(id)} color="primary" autoFocus>
+                    <Button onClick={() => deleteCategory()} color="primary" autoFocus>
                         Ok
                      </Button>
                 </DialogActions>
@@ -162,7 +162,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        fetchCategories: () => dispatch(fetchCategories())
+        fetchCategories: () => dispatch(fetchCategories()),
+        deleteCategories: (id) => dispatch(deleteCategories(id))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryList)

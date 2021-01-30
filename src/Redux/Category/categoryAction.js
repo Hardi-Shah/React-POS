@@ -2,6 +2,7 @@ import { FETCH_CATEGORIES, ADD_CATEGORIES, EDIT_CATEGORIES, DELETE_CATEGORIES} f
 import axios from 'axios'
 import { apiurl } from "../../Services/CategoryService";
 
+
 export const fetchCategorySuccess = (categories) => {
     return {
         type: FETCH_CATEGORIES,
@@ -42,6 +43,24 @@ export const addCategories = (values) => {
             .then(response => {
                 const cats = response.data
                 dispatch(addCategorySuccess(cats))
+            })
+    }
+}
+export const editCategories = (id,values) => {
+    return function (dispatch) {
+        axios.put(`${apiurl}/${id}`,values)
+            .then(response => {
+                const cats = response.data
+                dispatch(editCategorySuccess(cats))
+            })
+    }
+}
+export const deleteCategories = (id) => {
+    return function (dispatch) {
+        axios.delete(`${apiurl}/${id}`)
+            .then(response => {
+                const cats = response.data
+                dispatch(deleteCategorySuccess(cats))
             })
     }
 }

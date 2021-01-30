@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Dialog, Button, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper } from '@material-ui/core';
 import { connect } from 'react-redux'
-import { fetchProducts } from "../../../Redux/Product/ProductAction";
+import { fetchProducts, deleteProducts } from "../../../Redux/Product/ProductAction";
 
 
 toast.configure()
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function ProductList({ productData, fetchProducts }) {
+function ProductList({ productData, fetchProducts,deleteProducts }) {
     let history = useHistory();
     const classes = useStyles();
     const [products, setProducts] = useState([]);
@@ -63,8 +63,9 @@ function ProductList({ productData, fetchProducts }) {
     //     setProducts(result.data.reverse());
     // };
 
-    const deleteProduct = async id => {
-        await deleteProductServiceById(id)
+    const deleteProduct = async () => {
+        deleteProducts(id);
+        //await deleteProductServiceById(id)
         setOpen(false)
         toast.success('Deleted successfully!')
         history.push("/Product");
@@ -145,7 +146,7 @@ function ProductList({ productData, fetchProducts }) {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                      </Button>
-                    <Button onClick={() => deleteProduct(id)} color="primary" autoFocus>
+                    <Button onClick={() => deleteProduct()} color="primary" autoFocus>
                         Ok
                      </Button>
                 </DialogActions>
@@ -160,7 +161,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        fetchProducts: () => dispatch(fetchProducts())
+        fetchProducts: () => dispatch(fetchProducts()),
+        deleteProducts:(id)=>dispatch(deleteProducts(id))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList)

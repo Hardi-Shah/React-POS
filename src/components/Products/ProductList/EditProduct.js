@@ -6,8 +6,10 @@ import './Product.css';
 import { editProductService, getProductServiceById} from "../../../Services/ProductService";
 import { getCategoryService } from "../../../Services/CategoryService";
 import TextError from "./TextError";
+import { editProducts } from "../../../Redux/Product/ProductAction";
+import {connect} from 'react-redux'
 
-const EditProduct = () => {
+const EditProduct = ({editProducts}) => {
     let history = useHistory();
     const { id } = useParams();
     const [categories, setCategory] = useState([]);
@@ -53,7 +55,8 @@ const EditProduct = () => {
             .integer("A discount number can't include a decimal point").required('Discount is Reuired')
     })
     const onSubmit = async values => {
-        await editProductService(id, values)
+        editProducts(id,values);
+        //await editProductService(id, values)
         history.push("/Product");
     }
 
@@ -133,5 +136,14 @@ const EditProduct = () => {
         </div>
     )
 }
-
-export default EditProduct
+const mapStateToProps = state => {
+    return {
+        productData: state.product
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        editProducts:(id,values)=>dispatch(editProducts(id,values))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(EditProduct)

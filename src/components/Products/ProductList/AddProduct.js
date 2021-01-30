@@ -6,8 +6,10 @@ import './Product.css';
 import { addProductService } from "../../../Services/ProductService";
 import TextError from "./TextError";
 import { getCategoryService } from "../../../Services/CategoryService";
+import { addProducts } from "../../../Redux/Product/ProductAction";
+import {connect} from 'react-redux'
 
-const AddProduct = () => {
+const AddProduct = ({addProducts}) => {
     let history = useHistory();
     const initialValues = {
         name: "",
@@ -35,8 +37,9 @@ const AddProduct = () => {
             .positive("A discount number can't start with a minus")
             .integer("A discount number can't include a decimal point").required('Discount is Reuired')
     })
-    const onSubmit = async values => {
-        await addProductService(values)
+    const onSubmit = async (values) => {
+        addProducts(values);
+        //await addProductService(values)
         history.push("/Product");
     }
     useEffect(() => {
@@ -111,4 +114,14 @@ const AddProduct = () => {
         </div >
     )
 };
-export default AddProduct;
+const mapStateToProps = state => {
+    return {
+        productData: state.product
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        addProducts: (values) => dispatch(addProducts(values))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddProduct)
