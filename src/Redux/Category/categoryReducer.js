@@ -1,4 +1,4 @@
-import { FETCH_CATEGORIES, ADD_CATEGORIES, EDIT_CATEGORIES, DELETE_CATEGORIES} from "./categoryType"
+import { FETCH_CATEGORIES, ADD_CATEGORIES, EDIT_CATEGORIES, DELETE_CATEGORIES, LOAD_CATEGORIES} from "./categoryType"
 
 const intialState = {
     categories: []
@@ -20,6 +20,10 @@ const categoryReducer = (state = intialState, action) => {
         case DELETE_CATEGORIES: return {
             ...state,
             deletecat:state.categories.filter(item=>item.id !== action.payload)
+        }
+        case LOAD_CATEGORIES: return {
+            ...state,
+            categories: action.payload
         }
         default: return state
     }

@@ -1,4 +1,4 @@
-import { FETCH_CATEGORIES, ADD_CATEGORIES, EDIT_CATEGORIES, DELETE_CATEGORIES} from "./categoryType"
+import { FETCH_CATEGORIES, ADD_CATEGORIES, EDIT_CATEGORIES, DELETE_CATEGORIES, LOAD_CATEGORIES} from "./categoryType"
 import axios from 'axios'
 import { apiurl } from "../../Services/CategoryService";
 
@@ -24,6 +24,12 @@ export const editCategorySuccess = (data) => {
 export const deleteCategorySuccess = (id) => {
     return  {
         type: DELETE_CATEGORIES,
+        payload: id
+    }
+}
+export const loadCategorySuccess = (id) => {
+    return  {
+        type: LOAD_CATEGORIES,
         payload: id
     }
 }
@@ -61,6 +67,15 @@ export const deleteCategories = (id) => {
             .then(response => {
                 const cats = response.data
                 dispatch(deleteCategorySuccess(cats))
+            })
+    }
+}
+export const loadCategories = (id) => {
+    return function (dispatch) {
+        axios.get(`${apiurl}/${id}`)
+            .then(response => {
+                const cats = response.data
+                dispatch(loadCategorySuccess(cats))
             })
     }
 }

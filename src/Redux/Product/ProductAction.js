@@ -1,4 +1,4 @@
-import { FETCH_PRODUCTS, ADD_PRODUCTS, EDIT_PRODUCTS, DELETE_PRODUCTS} from "./productType"
+import { FETCH_PRODUCTS, ADD_PRODUCTS, EDIT_PRODUCTS, DELETE_PRODUCTS, LOAD_PRODUCTS} from "./productType"
 import axios from 'axios'
 import { apiurl } from "../../Services/ProductService"
 
@@ -23,6 +23,12 @@ export const editProductSuccess = (data) => {
 export const deleteProductSuccess = (id) => {
     return  {
         type: DELETE_PRODUCTS,
+        payload: id
+    }
+}
+export const loadProductSuccess = (id) => {
+    return  {
+        type: LOAD_PRODUCTS,
         payload: id
     }
 }
@@ -60,6 +66,15 @@ export const deleteProducts = (id) => {
             .then(response => {
                 const prdts = response.data
                 dispatch(deleteProductSuccess(prdts))
+            })
+    }
+}
+export const loadProducts = (id) => {
+    return function (dispatch) {
+        axios.get(`${apiurl}/${id}`)
+            .then(response => {
+                const prdts = response.data
+                dispatch(loadProductSuccess(prdts))
             })
     }
 }

@@ -6,10 +6,10 @@ import './Product.css';
 import { editProductService, getProductServiceById} from "../../../Services/ProductService";
 import { getCategoryService } from "../../../Services/CategoryService";
 import TextError from "./TextError";
-import { editProducts } from "../../../Redux/Product/ProductAction";
+import { editProducts, loadProducts } from "../../../Redux/Product/ProductAction";
 import {connect} from 'react-redux'
 
-const EditProduct = ({editProducts}) => {
+const EditProduct = ({editProducts,loadProducts}) => {
     let history = useHistory();
     const { id } = useParams();
     const [categories, setCategory] = useState([]);
@@ -17,7 +17,7 @@ const EditProduct = ({editProducts}) => {
         name: "",
         price: "",
         quantity: "",
-        selectOption: '',
+        catName: '',
         gst: "",
         discount: "",
         image:""
@@ -62,22 +62,17 @@ const EditProduct = ({editProducts}) => {
 
     useEffect(() => {
         loadProduct();
-        loadCategories();
     }, []);
 
     const loadProduct = async () => {
-        await getProductServiceById(id)
-            .then(res => setProduct(res.data))
-            .catch(err => {
-                history.push("/ProductNotFound");
-            })
+        loadProducts(id)
+        // await getProductServiceById(id)
+        //     .then(res => setProduct(res.data))
+        //     .catch(err => {
+        //         history.push("/ProductNotFound");
+        //     })
     };
-    const loadCategories = async () => {
-        const result = await getCategoryService()
-        setCategory(result.data.reverse());
-
-    };
-
+    
     const { name, price, quantity, gst, discount,image,catName } = product;
     return (
         <div className="container">
@@ -143,7 +138,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        editProducts:(id,values)=>dispatch(editProducts(id,values))
+        editProducts:(id,values)=>dispatch(editProducts(id,values)),
+        loadProducts:(id)=>dispatch(loadProducts(id))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EditProduct)
