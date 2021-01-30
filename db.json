@@ -1,20 +1,20 @@
 {
   "categories": [
     {
-      "id": 1,
-      "name": "Food"
-    },
-    {
-      "id": 2,
-      "name": "Clothing"
-    },
-    {
       "id": 3,
       "name": "Beverages"
     },
     {
-      "id": 4,
-      "name": "Electronics"
+      "name": "Clothing",
+      "id": 5
+    },
+    {
+      "name": "Food",
+      "id": 6
+    },
+    {
+      "name": "Electronics",
+      "id": 7
     }
   ],
   "products": [
@@ -27,8 +27,7 @@
       "quantity": "3",
       "gst": "3",
       "discount": "5",
-      "image": "coffee.jpg",
-      "selectOption": "3"
+      "image": "coffee.jpg"
     },
     {
       "name": "Red Label",
@@ -39,20 +38,7 @@
       "quantity": "1",
       "gst": "3",
       "discount": "10",
-      "image": "red-label.jpg",
-      "selectOption": "3"
-    },
-    {
-      "name": "Maggi",
-      "catId": 3,
-      "catName": "Beverages",
-      "price": "12",
-      "quantity": "2",
-      "selectOption": "3",
-      "gst": "1",
-      "discount": "2",
-      "image": "maggi.jpg",
-      "id": 7
+      "image": "red-label.jpg"
     },
     {
       "name": "Balaji",
@@ -60,7 +46,6 @@
       "catName": "Beverages",
       "price": "10",
       "quantity": "3",
-      "selectOption": "3",
       "gst": "1",
       "discount": "1",
       "image": "balaji.jpg",
@@ -72,7 +57,6 @@
       "catName": "Beverages",
       "price": "10",
       "quantity": "2",
-      "selectOption": "3",
       "gst": "1",
       "discount": "1",
       "image": "lays.jpg",
@@ -81,14 +65,24 @@
     {
       "name": "T-Shirts",
       "catName": "Clothing",
+      "catId": 5,
       "price": "600",
       "quantity": "2",
-      "selectOption": "2",
-      "catId": "2",
       "gst": "2",
       "discount": "20",
       "image": "tshirtwomen.jpg",
       "id": 10
+    },
+    {
+      "name": "Maggi",
+      "price": "12",
+      "quantity": "2",
+      "catName": "Food",
+      "catId": 6,
+      "gst": "1",
+      "discount": "1",
+      "image": "maggi.jpg",
+      "id": 11
     }
   ]
 }

@@ -31,7 +31,7 @@ const EditProduct = () => {
         name: "",
         price: "",
         quantity: "",
-        selectOption: '',
+        catName:'',
         gst: "",
         discount: "",
         image:""
@@ -44,7 +44,7 @@ const EditProduct = () => {
         quantity: Yup.number().typeError("That doesn't look like a  number")
             .positive("A price  can't start with a minus")
             .integer("A price  can't include a decimal point").required('Quantity is Reuired'),
-        selectOption: Yup.string().required('Select Category is Reuired'),
+        catName: Yup.string().required('Select Category is Reuired'),
         gst: Yup.number().typeError("That doesn't look like a  number")
             .positive("A GST number can't start with a minus")
             .integer("A GST number can't include a decimal point").required('GST is Reuired'),
@@ -75,7 +75,7 @@ const EditProduct = () => {
 
     };
 
-    const { name, price, quantity, selectOption, gst, discount,image } = product;
+    const { name, price, quantity, gst, discount,image,catName } = product;
     return (
         <div className="container">
             <div className="w-75 mx-auto shadow p-5 AddStyle" >
@@ -104,15 +104,15 @@ const EditProduct = () => {
                                 </div>
                                 <div >
                                     <label>Category Name</label>
-                                    <Field as='select' name='selectOption' value={selectOption} onChange={handleChange}>
+                                    <Field as='select' name='catName' value={catName} onChange={handleChange}>
                                         <option value=''>Select Category</option>
                                         {categories.map(Category => {
                                             return (
-                                                <option key={Category.name} value={Category.id}>{Category.name}</option>
+                                                <option key={Category.name} value={Category.name}>{Category.name}</option>
                                             )
                                         })}
                                     </Field>
-                                    <ErrorMessage name="selectOption" component={TextError} />
+                                    <ErrorMessage name="catName" component={TextError} />
                                 </div>
                                 <div >
                                     <label>GST </label>

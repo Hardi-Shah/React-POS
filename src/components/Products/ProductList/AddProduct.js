@@ -13,7 +13,6 @@ const AddProduct = () => {
         name: "",
         price: "",
         quantity: "",
-        selectOption: '',
         catName:'',
         gst: "",
         discount: "",
@@ -85,7 +84,7 @@ const AddProduct = () => {
                                             )
                                         })}
                                     </Field>
-                                    <ErrorMessage name="selectOption" component={TextError} />
+                                    <ErrorMessage name="catName" component={TextError} />
                                 </div>
                                 <div >
                                     <label>GST </label>

@@ -65,7 +65,7 @@ function CategoryList({ categoryData, fetchCategories }) {
     //     setCategories(result.data.reverse());
 
     // };
-    const deleteCategory = async id => {
+    const deleteCategory = async (id) => {
         axios.get(`${apiurl}?catId=${id}`)
             .then(result => {
                 result.data.map((res) => {
@@ -77,6 +77,7 @@ function CategoryList({ categoryData, fetchCategories }) {
         setOpen(false)
         toast.success('Deleted successfully!')
         history.push("/Category");
+        fetchCategories();
         //loadCategories();
     }
     const [page, setPage] = React.useState(0);

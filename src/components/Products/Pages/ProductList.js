@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function ProductList({productData, fetchProducts}) {
+function ProductList({ productData, fetchProducts }) {
     let history = useHistory();
     const classes = useStyles();
     const [products, setProducts] = useState([]);
@@ -163,4 +163,4 @@ const mapDispatchToProps = dispatch => {
         fetchProducts: () => dispatch(fetchProducts())
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(ProductList)
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList)
