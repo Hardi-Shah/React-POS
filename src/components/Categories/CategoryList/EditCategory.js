@@ -6,7 +6,7 @@ import './Category.css';
 import { editCategoryService, getCategoryServiceById } from "../../../Services/CategoryService";
 import TextError from "./TextError";
 import {connect} from 'react-redux'
-import { editCategories,loadCategories } from "../../../Redux/Category/categoryAction";
+import { editCategories } from "../../../Redux/Category/categoryAction";
 
 const EditCategory = ({editCategories,loadCategories}) => {
     let history = useHistory();
@@ -34,12 +34,12 @@ const EditCategory = ({editCategories,loadCategories}) => {
     }, []);
 
     const loadCategory = async () => {
-        loadCategories(id);
-        // await getCategoryServiceById(id)
-        //     .then(res => setCategory(res.data))
-        //     .catch(err => {
-        //         history.push("/NotFound");
-        //     })
+        //loadCategories(id);
+        await getCategoryServiceById(id)
+            .then(res => setCategory(res.data))
+            .catch(err => {
+                history.push("/NotFound");
+            })
     };
     const { name } = category;
     return (
@@ -74,8 +74,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        editCategories: (id,values) => dispatch(editCategories(id,values)),
-        loadCategories: (id) => dispatch(loadCategories(id))
+        editCategories: (id,values) => dispatch(editCategories(id,values))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EditCategory)

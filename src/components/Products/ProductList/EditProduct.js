@@ -4,12 +4,11 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import './Product.css';
 import { editProductService, getProductServiceById} from "../../../Services/ProductService";
-import { getCategoryService } from "../../../Services/CategoryService";
 import TextError from "./TextError";
-import { editProducts, loadProducts } from "../../../Redux/Product/ProductAction";
+import { editProducts } from "../../../Redux/Product/ProductAction";
 import {connect} from 'react-redux'
 
-const EditProduct = ({editProducts,loadProducts}) => {
+const EditProduct = ({editProducts}) => {
     let history = useHistory();
     const { id } = useParams();
     const [categories, setCategory] = useState([]);
@@ -65,12 +64,11 @@ const EditProduct = ({editProducts,loadProducts}) => {
     }, []);
 
     const loadProduct = async () => {
-        loadProducts(id)
-        // await getProductServiceById(id)
-        //     .then(res => setProduct(res.data))
-        //     .catch(err => {
-        //         history.push("/ProductNotFound");
-        //     })
+        await getProductServiceById(id)
+            .then(res => setProduct(res.data))
+            .catch(err => {
+                history.push("/ProductNotFound");
+            })
     };
     
     const { name, price, quantity, gst, discount,image,catName } = product;
@@ -138,8 +136,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        editProducts:(id,values)=>dispatch(editProducts(id,values)),
-        loadProducts:(id)=>dispatch(loadProducts(id))
+        editProducts:(id,values)=>dispatch(editProducts(id,values))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EditProduct)
