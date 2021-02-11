@@ -1,4 +1,4 @@
-import { FETCH_PRODUCTS, ADD_PRODUCTS, EDIT_PRODUCTS, DELETE_PRODUCTS, LOAD_PRODUCTS} from "./productType"
+import { FETCH_PRODUCTS, ADD_PRODUCTS, EDIT_PRODUCTS, DELETE_PRODUCTS, LOAD_PRODUCTS } from "./productType"
 import axios from 'axios'
 import { apiurl } from "../../Services/ProductService"
 
@@ -8,6 +8,7 @@ export const fetchProductSuccess = (products) => {
         payload: products
     }
 }
+
 export const addProductSuccess = (data) => {
     return {
         type: ADD_PRODUCTS,
@@ -21,39 +22,39 @@ export const editProductSuccess = (data) => {
     }
 }
 export const deleteProductSuccess = (id) => {
-    return  {
+    return {
         type: DELETE_PRODUCTS,
         payload: id
     }
 }
 export const loadProductSuccess = (id) => {
-    return  {
+    return {
         type: LOAD_PRODUCTS,
         payload: id
     }
 }
 
-export const fetchProducts = () =>  {
-     return function (dispatch) {
-       axios.get(`${apiurl}`)
+export const fetchProducts = () => {
+    return function (dispatch) {
+        axios.get(`${apiurl}`)
             .then(response => {
-                const products=response.data
+                const products = response.data
                 dispatch(fetchProductSuccess(products))
             })
     }
 }
 export const addProducts = (values) => {
     return function (dispatch) {
-        axios.post(`${apiurl}`,values)
+        axios.post(`${apiurl}`, values)
             .then(response => {
                 const prdts = response.data
                 dispatch(addProductSuccess(prdts))
             })
     }
 }
-export const editProducts = (id,values) => {
+export const editProducts = (id, values) => {
     return function (dispatch) {
-        axios.put(`${apiurl}/${id}`,values)
+        axios.put(`${apiurl}/${id}`, values)
             .then(response => {
                 const prdts = response.data
                 dispatch(editProductSuccess(prdts))

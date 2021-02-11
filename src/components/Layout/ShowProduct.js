@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import { getProductService } from '../../Services/ProductService';
 import { getCategoryService } from "../../Services/CategoryService";
 import CartProduct from './CartProduct';
+import { connect } from 'react-redux'
+import { fetchProducts,addToCart } from "../../Redux/Product/ProductAction";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function ShowProduct() {
+function ShowProduct({fetchProducts,productData,addToCart}) {
     const classes = useStyles();
     const [products, setProduct] = useState([]);
     const [categories, setCategory] = useState([]);
@@ -53,8 +55,9 @@ function ShowProduct() {
     const [cart, setCart] = useState([]);
 
     useEffect(() => {
-        loadProducts();
+        //loadProducts();
         loadCategories();
+        fetchProducts();
     }, []);
 
     const loadProducts = async () => {
@@ -69,32 +72,34 @@ function ShowProduct() {
     const filteredProducts = e => {
         setSearch(e.target.value);
     };
-
-    const addToCart = (Product) => {
-        const exist = cart.find((x) => x.id === Product.id);
-        const newProduct = products.find((x) => x.id === Product.id);
-        if (newProduct && newProduct.quantity === 0) {
-            toast.warn('Product is out of stock!');
-            return;
-        }
-        if (exist) {
-            setCart(
-                cart.map((x) =>
-                    x.id === Product.id ? { ...exist, quantity: exist.quantity + 1 } : x
-                )
-            );
-        }
-        else {
-            setCart([...cart, { ...Product, quantity: 1 }]);
-        }
-        if (newProduct) {
-            setProduct(
-                products.map((x) =>
-                    x.id === newProduct.id ? { ...newProduct, quantity: newProduct.quantity - 1 } : x
-                )
-            );
-        }
-    };
+   const handleClick = (product)=>{
+        addToCart(product); 
+    }
+    // const addToCart = (Product) => {
+    //     const exist = cart.find((x) => x.id === Product.id);
+    //     const newProduct = products.find((x) => x.id === Product.id);
+    //     if (newProduct && newProduct.quantity === 0) {
+    //         toast.warn('Product is out of stock!');
+    //         return;
+    //     }
+    //     if (exist) {
+    //         setCart(
+    //             cart.map((x) =>
+    //                 x.id === Product.id ? { ...exist, quantity: exist.quantity + 1 } : x
+    //             )
+    //         );
+    //     }
+    //     else {
+    //         setCart([...cart, { ...Product, quantity: 1 }]);
+    //     }
+    //     if (newProduct) {
+    //         setProduct(
+    //             products.map((x) =>
+    //                 x.id === newProduct.id ? { ...newProduct, quantity: newProduct.quantity - 1 } : x
+    //             )
+    //         );
+    //     }
+    // };
 
     const removeFromCart = (Product) => {
         const exist = cart.find((x) => x.id === Product.id);
@@ -126,7 +131,7 @@ function ShowProduct() {
                 justify="center"
             >
                 <Grid item xs={12} sm={6} md={6}>
-                    <CartProduct cartitem={cart} addToCart={addToCart} removeFromCart={removeFromCart} />
+                    <CartProduct cartitem={cart} addToCart={handleClick} removeFromCart={removeFromCart} />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} className={classes.grid}>
                     <Grid container
@@ -147,7 +152,7 @@ function ShowProduct() {
                                 })}
                             </select>
                         </div>
-                        {products.filter((val) => {
+                        {productData && productData.products && productData.products.filter((val) => {
                             if (search === '') {
                                 return val;
                             } else if (val.catName?.toLowerCase().includes(search.toLowerCase())) {
@@ -164,7 +169,7 @@ function ShowProduct() {
                             return (
                                 <Grid item xs={4} key={Product.id}  >
                                     <Card className={classes.card}  >
-                                        <CardActionArea onClick={() => addToCart(Product)}>
+                                        <CardActionArea onClick={() => handleClick(Product)}>
                                             <CardHeader
                                                 title={Product.name}
                                             />
@@ -192,4 +197,15 @@ function ShowProduct() {
         </>
     )
 }
-export default ShowProduct
+const mapStateToProps = state => {
+    return {
+        productData: state.product
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchProducts: () => dispatch(fetchProducts()),
+        addToCart: (product)=>dispatch(addToCart(product))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ShowProduct)

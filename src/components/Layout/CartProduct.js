@@ -31,7 +31,7 @@ function CartProduct(props) {
     const classes = useStyles();
     const [cart, setCart] = useState([]);
 
-    const { cartitem, addToCart, removeFromCart } = props;
+    const { cartitem, addToCrt, removeFromCart } = props;
 
     const itemsPrice = cartitem.reduce((a, c) => a + c.price * c.quantity + (c.price * c.quantity * c.gst / 100) - c.discount, 0);
     const totalPrice = itemsPrice
@@ -127,7 +127,7 @@ function CartProduct(props) {
                                     <TableCell>{cart.quantity}</TableCell>
                                     <TableCell>{cart.gst}</TableCell>
                                     <TableCell>
-                                        <button  onClick={() => addToCart(cart)} className="btn fa fa-plus  mr-2" ></button>
+                                        <button  onClick={() => addToCrt(cart)} className="btn fa fa-plus  mr-2" ></button>
                                         <button onClick={() => removeFromCart(cart)} className="btn fa fa-minus  mr-2" > </button>
                                     </TableCell>
                                     <TableCell>{cart.price * cart.quantity + (cart.price * cart.quantity * cart.gst / 100) - cart.discount}</TableCell>
