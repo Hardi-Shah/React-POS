@@ -6,7 +6,8 @@ import { getProductService } from '../../Services/ProductService';
 import { getCategoryService } from "../../Services/CategoryService";
 import CartProduct from './CartProduct';
 import { connect } from 'react-redux'
-import { fetchProducts,addToCart } from "../../Redux/Product/ProductAction";
+import { fetchProducts } from "../../Redux/Product/ProductAction";
+import { addToCart } from '../../Redux/Cart/cartAction';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -72,9 +73,10 @@ function ShowProduct({fetchProducts,productData,addToCart}) {
     const filteredProducts = e => {
         setSearch(e.target.value);
     };
-   const handleClick = (product)=>{
-        addToCart(product); 
-    }
+//    const handleClick = (product)=>{
+//         addToCart(product); 
+//     }
+
     // const addToCart = (Product) => {
     //     const exist = cart.find((x) => x.id === Product.id);
     //     const newProduct = products.find((x) => x.id === Product.id);
@@ -131,7 +133,7 @@ function ShowProduct({fetchProducts,productData,addToCart}) {
                 justify="center"
             >
                 <Grid item xs={12} sm={6} md={6}>
-                    <CartProduct cartitem={cart} addToCart={handleClick} removeFromCart={removeFromCart} />
+                    <CartProduct cartitem={cart} addToCart={addToCart} removeFromCart={removeFromCart} />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} className={classes.grid}>
                     <Grid container
@@ -169,7 +171,7 @@ function ShowProduct({fetchProducts,productData,addToCart}) {
                             return (
                                 <Grid item xs={4} key={Product.id}  >
                                     <Card className={classes.card}  >
-                                        <CardActionArea onClick={() => handleClick(Product)}>
+                                        <CardActionArea onClick={() => addToCart(Product)}>
                                             <CardHeader
                                                 title={Product.name}
                                             />
@@ -205,7 +207,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchProducts: () => dispatch(fetchProducts()),
-        addToCart: (product)=>dispatch(addToCart(product))
+        addToCart:(product)=>dispatch(addToCart(product))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ShowProduct)

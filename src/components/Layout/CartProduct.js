@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Modal, Paper } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import './ListItem.css';
+import {connect} from 'react-redux'
+import { removeFromCart } from '../../Redux/Cart/cartAction';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -171,5 +173,14 @@ function CartProduct(props) {
         </>
     )
 }
-
-export default CartProduct
+const mapStateToProps = state => {
+    return {
+        cartItems: state.cart,
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        removeFromCart:(cart)=>dispatch(removeFromCart(cart))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CartProduct)
