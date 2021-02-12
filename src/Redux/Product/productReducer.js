@@ -1,12 +1,49 @@
 import { FETCH_PRODUCTS, ADD_PRODUCTS, EDIT_PRODUCTS, DELETE_PRODUCTS, LOAD_PRODUCTS } from "./productType"
+import { ADD_TO_CART } from "../Cart/cartType"
+import { toast } from 'react-toastify'
+import { addToCart } from "../Cart/cartAction"
 const intialState = {
-    products: []
+    products: [],
+    cartitem: []
 }
-
 const productReducer = (state = intialState, action) => {
     switch (action.type) {
         case FETCH_PRODUCTS: return {
             products: action.payload
+        }   
+        // case ADD_TO_CART: return {
+        //     ...state,
+        //     //cartitem: state.cartitem.push(action.payload)
+        //     cartitem: addToCart(state.cartitem, action.payload)
+        // }
+        case ADD_TO_CART: {
+            debugger
+            const exist = state.cartitem.find((x) => action.payload.id === x.id);
+            const newProduct = state.products.find((x) => x.id === action.payload.id);
+            if (newProduct && newProduct.quantity === 0) {
+                toast.warn('Product is out of stock!');
+                return;
+            }
+            if (exist) {
+                newProduct.quantity += 1
+                return {
+                    ...state
+                }
+            }
+            else {
+                newProduct.quantity = 1;
+                return {
+                    ...state,
+                    cartitem: [...state.cartitem, newProduct]
+                }
+            }
+            // if (newProduct) {
+            //     setProduct(
+            //         state.products.map((x) =>
+            //             x.id === newProduct.id ? { ...newProduct, quantity: newProduct.quantity - 1 } : x
+            //         )
+            //     );
+            // }
         }
         case ADD_PRODUCTS: return {
             ...state,

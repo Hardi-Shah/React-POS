@@ -73,7 +73,7 @@ function ShowProduct({fetchProducts,productData,addToCart}) {
     const filteredProducts = e => {
         setSearch(e.target.value);
     };
-//    const handleClick = (product)=>{
+//    const addTocart = (product)=>{
 //         addToCart(product); 
 //     }
 
@@ -207,7 +207,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchProducts: () => dispatch(fetchProducts()),
-        addToCart:(product)=>dispatch(addToCart(product))
+        addToCart:(Product)=>dispatch(addToCart(Product))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ShowProduct)
