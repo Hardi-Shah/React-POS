@@ -18,8 +18,8 @@ const productReducer = (state = intialState, action) => {
         // }
         case ADD_TO_CART: {
             debugger
-            const exist = state.cartitem.find((x) => action.payload.id === x.id);
             const newProduct = state.products.find((x) => x.id === action.payload.id);
+             const exist = state.cartitem.find((x) => action.payload.id === x.id);
             if (newProduct && newProduct.quantity === 0) {
                 toast.warn('Product is out of stock!');
                 return;
