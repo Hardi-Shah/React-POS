@@ -7,7 +7,7 @@ import { getCategoryService } from "../../Services/CategoryService";
 import CartProduct from './CartProduct';
 import { connect } from 'react-redux'
 import { fetchProducts } from "../../Redux/Product/ProductAction";
-import { addToCart } from '../../Redux/Cart/cartAction';
+// import { addToCart } from '../../Redux/Cart/cartAction';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function ShowProduct({fetchProducts,productData,addToCart}) {
+function ShowProduct({ productData, fetchProducts }) { //addToCart ,fetchProducts
     const classes = useStyles();
     const [products, setProduct] = useState([]);
     const [categories, setCategory] = useState([]);
@@ -56,7 +56,7 @@ function ShowProduct({fetchProducts,productData,addToCart}) {
     const [cart, setCart] = useState([]);
 
     useEffect(() => {
-        //loadProducts();
+        loadProducts();
         loadCategories();
         fetchProducts();
     }, []);
@@ -73,35 +73,35 @@ function ShowProduct({fetchProducts,productData,addToCart}) {
     const filteredProducts = e => {
         setSearch(e.target.value);
     };
-//    const addTocart = (product)=>{
-//         addToCart(product); 
-//     }
+    // const addTocart = (product) => {
+    //     addToCart(product);
+    // }
 
-    // const addToCart = (Product) => {
-    //     const exist = cart.find((x) => x.id === Product.id);
-    //     const newProduct = products.find((x) => x.id === Product.id);
-    //     if (newProduct && newProduct.quantity === 0) {
-    //         toast.warn('Product is out of stock!');
-    //         return;
-    //     }
-    //     if (exist) {
-    //         setCart(
-    //             cart.map((x) =>
-    //                 x.id === Product.id ? { ...exist, quantity: exist.quantity + 1 } : x
-    //             )
-    //         );
-    //     }
-    //     else {
-    //         setCart([...cart, { ...Product, quantity: 1 }]);
-    //     }
-    //     if (newProduct) {
-    //         setProduct(
-    //             products.map((x) =>
-    //                 x.id === newProduct.id ? { ...newProduct, quantity: newProduct.quantity - 1 } : x
-    //             )
-    //         );
-    //     }
-    // };
+    const addToCart = (Product) => {
+        const exist = cart.find((x) => x.id === Product.id);
+        const newProduct = products.find((x) => x.id === Product.id);
+        if (newProduct && newProduct.quantity === 0) {
+            toast.warn('Product is out of stock!');
+            return;
+        }
+        if (exist) {
+            setCart(
+                cart.map((x) =>
+                    x.id === Product.id ? { ...exist, quantity: exist.quantity + 1 } : x
+                )
+            );
+        }
+        else {
+            setCart([...cart, { ...Product, quantity: 1 }]);
+        }
+        if (newProduct) {
+            setProduct(
+                products.map((x) =>
+                    x.id === newProduct.id ? { ...newProduct, quantity: newProduct.quantity - 1 } : x
+                )
+            );
+        }
+    };
 
     const removeFromCart = (Product) => {
         const exist = cart.find((x) => x.id === Product.id);
@@ -143,7 +143,7 @@ function ShowProduct({fetchProducts,productData,addToCart}) {
                             <input type='text' style={{ width: 230, marginTop: '-42px' }} className={classes.search} placeholder='Search...' onChange={filteredProducts} />
 
                             <label style={{ marginTop: '-77px', marginLeft: '252px' }}>Search by Category:</label>
-                            <select name='selectTitle' style={{ width: 230, marginTop: '-54px',marginLeft:'252px'}} className={classes.titledropdown} onChange={filteredProducts}>
+                            <select name='selectTitle' style={{ width: 230, marginTop: '-54px', marginLeft: '252px' }} className={classes.titledropdown} onChange={filteredProducts}>
                                 <option value=''>Select Category</option>
                                 {categories.map(option => {
                                     return (
@@ -207,7 +207,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchProducts: () => dispatch(fetchProducts()),
-        addToCart:(Product)=>dispatch(addToCart(Product))
+        //addToCart: (Product) => dispatch(addToCart(Product))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ShowProduct)
+//export default ShowProduct;

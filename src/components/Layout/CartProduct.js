@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Modal, Paper } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import './ListItem.css';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { removeFromCart } from '../../Redux/Cart/cartAction';
 
 const useStyles = makeStyles((theme) => ({
@@ -129,7 +129,7 @@ function CartProduct(props) {
                                     <TableCell>{cart.quantity}</TableCell>
                                     <TableCell>{cart.gst}</TableCell>
                                     <TableCell>
-                                        <button  onClick={() => addToCrt(cart)} className="btn fa fa-plus  mr-2" ></button>
+                                        <button onClick={() => addToCrt(cart)} className="btn fa fa-plus  mr-2" ></button>
                                         <button onClick={() => removeFromCart(cart)} className="btn fa fa-minus  mr-2" > </button>
                                     </TableCell>
                                     <TableCell>{cart.price * cart.quantity + (cart.price * cart.quantity * cart.gst / 100) - cart.discount}</TableCell>
@@ -173,14 +173,15 @@ function CartProduct(props) {
         </>
     )
 }
-const mapStateToProps = state => {
-    return {
-        cartItems: state.cart,
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        removeFromCart:(cart)=>dispatch(removeFromCart(cart))
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(CartProduct)
+// const mapStateToProps = state => {
+//     return {
+//         cartItems: state.cart,
+//     }
+// }
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         removeFromCart:(cart)=>dispatch(removeFromCart(cart))
+//     }
+// }
+// export default connect(mapStateToProps, mapDispatchToProps)(CartProduct)
+export default CartProduct;
